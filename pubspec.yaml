@@ -35,10 +35,10 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-fonts:
-  - family: SocialIcons
-    fonts:
-      - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
+  fonts:
+    - family: SocialIcons
+      fonts:
+        - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
