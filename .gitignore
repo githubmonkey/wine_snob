@@ -45,3 +45,9 @@ app.*.map.json
 
 *.jks
 /android/keys/
+
+# Firebase configs
+firebase_options.dart
+firebase_app_id_file.json
+google-services.json
+GoogleService-Info.plist
