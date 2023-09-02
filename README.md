@@ -1,19 +1,19 @@
 # wine_snob
 
-A new Flutter project.
+Wine Snob - become a wine expert with AI
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is part of a PaLM API demo. 
 
-A few resources to get you started if this is your first Flutter project:
+## Code generation
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The project uses the riverpod code generator. To monitor the source directly and rerun the generator
+on chances use
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```shell
+dart run build_runner watch 
+```
 
 ## Deploy to firebase hosting
 
@@ -27,7 +27,18 @@ it.
 
 This [issue](https://github.com/firebase/firebase-tools/issues/5941) has some context.
 
-```
+```shell
 flutter build web --dart-define-from-file=android/keys/api-keys.json
 firebase deploy
 ```
+
+## Attributions
+
+This project borrows ideas, code, and code snippets from some open source projects I would like to
+thank the authors for sharing their work.
+
+* [Flutter codelab haiku generator](https://github.com/flutter/codelabs/tree/main/haiku_generator)
+* [Andrea Bizzotto starter architecture](https://github.com/bizz84/starter_architecture_flutter_firebase/tree/master)
+* more references included in the code
+
+Please reach out if you feel that I used your code without attribution.

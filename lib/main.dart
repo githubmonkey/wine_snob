@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wine_snob/firebase_options.dart';
-import 'package:wine_snob/oracle_page.dart';
+import 'package:wine_snob/routing/app_router.dart';
 
 Future<void> main() async {
   try {
@@ -21,19 +21,21 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final goRouter = ref.watch(goRouterProvider);
+    return MaterialApp.router(
       title: 'Wine Snob',
+      routerConfig: goRouter,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
-      home: const OraclePage(title: 'PaLM api chat demo'),
+      //debugShowCheckedModeBanner: false,
     );
   }
 }

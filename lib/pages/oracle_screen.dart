@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:wine_snob/controller/blurb_controller.dart';
 
-class OraclePage extends StatefulWidget {
-  const OraclePage({super.key, required this.title});
-
-  final String title;
+class OracleScreen extends StatefulWidget {
+  const OracleScreen({super.key});
 
   @override
-  State<OraclePage> createState() => OraclePageState();
+  State<OracleScreen> createState() => OracleScreenState();
 }
 
-class OraclePageState extends State<OraclePage> {
+class OracleScreenState extends State<OracleScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final BlurbController blurbController = BlurbController();
@@ -39,7 +37,7 @@ class OraclePageState extends State<OraclePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('PaLM API Demo'),
       ),
       body: Center(
         child: Padding(
