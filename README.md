@@ -15,6 +15,14 @@ on chances use
 dart run build_runner watch 
 ```
 
+## Firebase emulators
+
+In debugging mode, I use the firebase emulator suite. 
+
+```shell
+firebase emulators:start --import ./data --export-on-exit
+```
+
 ## Deploy to firebase hosting
 
 For now the project needs to have some secrets added as a commandline parameter. This is a problem
