@@ -45,6 +45,7 @@ app.*.map.json
 
 *.jks
 /android/keys/
+/lib/keys/
 
 # Firebase configs
 .firebaserc

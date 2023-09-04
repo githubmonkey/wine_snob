@@ -25,19 +25,11 @@ firebase emulators:start --import ./data --export-on-exit
 
 ## Deploy to firebase hosting
 
-For now the project needs to have some secrets added as a commandline parameter. This is a problem
-for the new experimental firebase deploy magic which builds and deploys the project automatically,
-but doesn't take extra args.
-
-Until the dependence on dart-define is removed I have changed firebase.json to use `public` rather
-than `source` which means that I have to manually build the project before letting firebase deploy
-it.
-
-This [issue](https://github.com/firebase/firebase-tools/issues/5941) has some context.
+Firebase deploy magic  builds and deploys the project automatically, but doesn't take extra args.
 
 ```shell
-flutter build web --dart-define-from-file=android/keys/api-keys.json
 firebase deploy
+firebase hosting:channel:deploy beta
 ```
 
 ## Attributions

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:wine_snob/keys/secrets.dart';
 
 import '../../domain/repositories/abstract/blurb_repository.dart';
 
@@ -9,7 +10,7 @@ class BlurbRepositoryImpl implements BlurbRepository {
 
   @override
   Future<List<String>> getBlurbs(String description) async {
-    const apiKey = String.fromEnvironment("API_KEY");
+    const apiKey = Secrets.palmApiKey;
     const recordCount = 3;
 
     final url = Uri.parse(
