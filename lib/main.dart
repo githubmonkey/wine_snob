@@ -20,6 +20,8 @@ Future<void> main() async {
   if (kDebugMode) {
     FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
     await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  } else {
+    print('${FirebaseFirestore.instance.toString()} is alive');
   }
 
   runApp(
