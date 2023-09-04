@@ -13,6 +13,7 @@ dependencies:
 
   cloud_firestore: ^4.9.1
   cupertino_icons: ^1.0.2
+  equatable: ^2.0.5
   firebase_auth: ^4.9.0
   firebase_core: ^2.15.1
   firebase_ui_auth: ^1.7.0

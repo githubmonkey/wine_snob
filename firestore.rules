@@ -1,0 +1,21 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isauthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function isadmin() {
+      return isauthenticated() && request.auth.token.email == 'sylvie@gmail.com';
+    }
+
+    function isowner(uid) {
+      return isauthenticated() && request.auth.uid == uid;
+    }
+
+    match /users/{uid}/{document=**} {
+      allow read, write: if isowner(uid) || isadmin();
+    }
+  }
+}

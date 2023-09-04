@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wine_snob/controller/blurb_controller.dart';
+import 'package:wine_snob/controller/oracle_controller.dart';
+import 'package:wine_snob/widgets/oracle_card.dart';
 
-class OracleScreen extends StatefulWidget {
+class OracleScreen extends ConsumerStatefulWidget {
   const OracleScreen({super.key});
 
   @override
-  State<OracleScreen> createState() => OracleScreenState();
+  OracleScreenState createState() => OracleScreenState();
 }
 
-class OracleScreenState extends State<OracleScreen> {
+class OracleScreenState extends ConsumerState<OracleScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final BlurbController blurbController = BlurbController();
@@ -86,24 +89,14 @@ class OracleScreenState extends State<OracleScreen> {
               return null;
             },
           ),
+          const SizedBox(height: 16.0),
           FilledButton(
-            onPressed: description.isNotEmpty
-                ? () => updateBlurbsData(description)
-                : null,
-            style: FilledButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 18),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
-            child: const Text(
-              'Taste it!',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            onPressed: description.isEmpty
+                ? null
+                : () => ref
+                    .read(oracleControllerProvider.notifier)
+                    .updateOracles(description),
+            child: const Text('Taste it!'),
           )
         ],
       ),
@@ -111,37 +104,19 @@ class OracleScreenState extends State<OracleScreen> {
   }
 
   Expanded buildBottomView2() {
+    final oraclesController = ref.watch(oracleControllerProvider);
+
     return Expanded(
-      child: FutureBuilder(
-        future: blurbData,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.none) {
-            return const Center(child: Text("..."));
-          }
-
-          if (snapshot.connectionState == ConnectionState.active ||
-              snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (snapshot.hasError || !snapshot.hasData) {
-            return Center(
-              child: Text(snapshot.error.toString()),
-            );
-          }
-
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              return Card(
-                  child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(snapshot.data![index].toString()),
-              ));
-            },
-          );
-        },
-      ),
+      child: switch (oraclesController) {
+        AsyncData(:final value) => ListView(
+            children: [
+              for (final (index, oracle) in value.indexed)
+                OracleCard(index: index, oracle: oracle),
+            ],
+          ),
+        AsyncError(:final error) => Text('Error: $error'),
+        _ => const Center(child: CircularProgressIndicator()),
+      },
     );
   }
 }
