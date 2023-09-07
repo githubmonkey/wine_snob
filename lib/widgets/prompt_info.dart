@@ -40,8 +40,7 @@ class PromptInfoState extends ConsumerState<PromptInfo> {
                 color: Colors.white,
                 width: Size.infinite.width,
                 padding: const EdgeInsets.all(16),
-                child:
-                    Text(currentPrompt?.prettyPrint() ?? 'No Prompt selected'),
+                child: Text(currentPrompt?.request ?? 'No Prompt selected'),
               ),
             )
           ]),

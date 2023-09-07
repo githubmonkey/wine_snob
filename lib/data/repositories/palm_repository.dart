@@ -16,17 +16,6 @@ class PalmRepository {
   final recordCount = 3;
   final temperature = 0.5;
 
-  Object _formatForPalm(Map<String, String> examples) {
-    var list = [];
-    examples.forEach((k, v) {
-      list.add({
-        'input': {'content': k},
-        'output': {'content': v}
-      });
-    });
-    return list;
-  }
-
   Future<List<String>> fetchResults(String description, Prompt prompt) async {
     final url =
         Uri.parse('https://generativelanguage.googleapis.com/v1beta2/models/'
@@ -34,33 +23,19 @@ class PalmRepository {
 
     final headers = {'Content-Type': 'application/json'};
 
-    final str = {
-      "prompt": {
-        "context": prompt.context,
-        "examples": _formatForPalm(prompt.examples),
-        "messages": [
-          {"content": prompt.message.replaceAll("\${description}", description)}
-        ],
-      },
-      "candidate_count": recordCount,
-      "temperature": temperature,
-    };
+    final String body;
+    try {
+      // String interpolation won't work so I'll just fake it.
+      // Decode/encode makes sure the string is well formatted.
+      body = jsonEncode(jsonDecode(
+          prompt.request.replaceAll("\${description}", description)));
 
-    final body = jsonEncode({
-      "prompt": {
-        "context": prompt.context,
-        "examples": _formatForPalm(prompt.examples),
-        "messages": [
-          {"content": prompt.message.replaceAll("\${description}", description)}
-        ],
-      },
-      "candidate_count": recordCount,
-      "temperature": temperature,
-    });
+      //print(jsonEncode(jsonDecode(prompt.request)));
+    } catch (error) {
+      throw Exception('Formatting error in prompt: $error\n$prompt.request');
+    }
 
     try {
-      print(str);
-      print(body);
       final response = await http.post(url, headers: headers, body: body);
       if (response.statusCode == 200) {
         final decodedResponse = json.decode(response.body);
