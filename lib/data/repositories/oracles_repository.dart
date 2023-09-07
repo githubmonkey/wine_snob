@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:wine_snob/data/repositories/firebase_auth_repository.dart';
 import 'package:wine_snob/domain/models/oracle.dart';
+import 'package:wine_snob/domain/models/prompt.dart';
 
 import '../../domain/models/app_user.dart';
 
@@ -19,41 +20,37 @@ class OraclesRepository {
 
   static String oraclesPath(String uid) => 'users/$uid/oracles';
 
-  // get an oracle object with id
-  Oracle createOracle({
+// create
+  Future<String> addOracle({
     required UserID uid,
+    required PromptID promptId,
+    required String promptHandle,
     required String input,
     required String output,
-  }) {
-    final docref = _firestore.collection(oraclesPath(uid)).doc();
-    return Oracle(id: docref.id, uid: uid, input: input, output: output);
+    required String comment,
+  }) async {
+    final doc = _firestore.collection(oraclesPath(uid)).doc();
+    await doc.set({
+      'id': doc.id,
+      'uid': uid,
+      'promptId': promptId,
+      'promptHandle': promptHandle,
+      'input': input,
+      'output': output,
+      'comment': comment,
+      'created': FieldValue.serverTimestamp()
+    });
+    return doc.id;
   }
 
-  Future<void> setOracle({required UserID uid, required Oracle oracle}) {
-    var data = oracle.toMap();
-    data['created'] = FieldValue.serverTimestamp();
-
-    return _firestore.doc(oraclePath(uid, oracle.id)).set(data);
-  }
-
-  // create
-  // NOTE: no comment or rating at this point
-  Future<void> xxaddOracle({
-    required UserID uid,
-    required String input,
-    required String output,
-  }) =>
-      _firestore.collection(oraclesPath(uid)).add({
-        'input': input,
-        'output': output,
-        'created': FieldValue.serverTimestamp(),
-      });
-
-// update
-  Future<void> updateOracle({required UserID uid, required OracleID oid, required Map<String, dynamic> data}) =>
+  // update
+  Future<void> updateOracle(
+          {required UserID uid,
+          required OracleID oid,
+          required Map<String, dynamic> data}) =>
       _firestore.doc(oraclePath(uid, oid)).update(data);
 
-// read
+  // read
   Stream<Oracle> watchOracle(
           {required UserID uid, required OracleID oracleId}) =>
       _firestore
@@ -68,7 +65,7 @@ class OraclesRepository {
 
   Stream<List<Oracle>> watchOracles({required UserID uid}) =>
       queryOracles(uid: uid)
-          .orderBy('rating')
+          .orderBy('created', descending: true)
           .snapshots()
           .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
 
@@ -79,10 +76,10 @@ class OraclesRepository {
             toFirestore: (oracle, _) => oracle.toMap(),
           );
 
-// Order doesn't matter
-  Future<List<Oracle>> xxfetchOracles({required UserID uid}) async {
-    final oracles = await queryOracles(uid: uid).get();
-    return oracles.docs.map((doc) => doc.data()).toList();
+  Future<void> deleteOracle(
+      {required UserID uid, required OracleID oracleId}) async {
+    final ref = _firestore.doc(oraclePath(uid, oracleId));
+    await ref.delete();
   }
 }
 

@@ -1,41 +1,43 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:wine_snob/data/repositories/blurb_repository_impl.dart';
-import 'package:wine_snob/data/repositories/firebase_auth_repository.dart';
-import 'package:wine_snob/data/repositories/oracles_repository.dart';
-import 'package:wine_snob/domain/models/oracle.dart';
+import 'package:wine_snob/controller/prompt_controller.dart';
+import 'package:wine_snob/controller/query_controller.dart';
+import 'package:wine_snob/data/repositories/palm_repository.dart';
+import 'package:wine_snob/domain/models/prompt.dart';
 
 part 'oracle_controller.g.dart';
 
 @riverpod
 class OracleController extends _$OracleController {
-  String _description = '';
-
-  Future<List<Oracle>> _fetchOracle() async {
-    if (_description.isEmpty) return [];
-
-    final oraclesRepository = ref.read(oraclesRepositoryProvider);
-    final blurbRepository = BlurbRepositoryImpl();
-    final user = ref.read(authRepositoryProvider).currentUser!;
-    final blurbs = await blurbRepository.getBlurbs(_description);
-    final oracles = blurbs.map((elem) {
-      final oracle = oraclesRepository.createOracle(
-          uid: user.uid, input: _description, output: elem);
-      oraclesRepository.setOracle(uid: user.uid, oracle: oracle);
-      return oracle;
-    }).toList();
-    return oracles;
+  Future<List<String>> _fetchResults(String? query, Prompt? prompt) async {
+    if (query == null || query.isEmpty || prompt == null) {
+      return [];
+    }
+    return ref.read(palmRepositoryProvider).fetchResults(query, prompt);
   }
 
   @override
-  FutureOr<List<Oracle>> build() {
-    return _fetchOracle();
+  FutureOr<List<String>> build() {
+    return _fetchResults(null, null);
   }
 
-  Future<void> updateOracles(String description) async {
+  Future<void> queryPalmAPI() async {
+    // Custom_lint is warning "info: Generated providers should only depend on other generated providers. Failing to do so may break rules such as "provider_dependencies". (avoid_manual_providers_as_generated_provider_dependency at [wine_snob] lib/controller/oracle_controller.dart:25)
+    // This is odd. Both providers are generated.
+    // ignore: avoid_manual_providers_as_generated_provider_dependency
+    final prompt = ref.read(promptControllerProvider);
+    // ignore: avoid_manual_providers_as_generated_provider_dependency
+    final query = ref.read(queryControllerProvider);
+
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      _description = description;
-      return _fetchOracle();
+      return _fetchResults(query, prompt);
+    });
+  }
+
+  Future<void> resetResults() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      return _fetchResults(null, null);
     });
   }
 }

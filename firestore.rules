@@ -17,5 +17,9 @@ service cloud.firestore {
     match /users/{uid}/{document=**} {
       allow read, write: if isowner(uid) || isadmin();
     }
+
+    match /prompts/{document=**} {
+          allow read: if isauthenticated();
+        }
   }
 }
