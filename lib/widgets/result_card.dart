@@ -22,13 +22,7 @@ class ResultCard extends ConsumerStatefulWidget {
 class ResultCardState extends ConsumerState<ResultCard> {
   String? oracleId;
   String comment = '';
-  bool keepIt = false;
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {});
-  }
+  bool isDirty = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +30,7 @@ class ResultCardState extends ConsumerState<ResultCard> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Result ${widget.index}, ${oracleId ?? '<not saved>'}',
                 style: Theme.of(context).textTheme.titleMedium),
@@ -49,40 +44,89 @@ class ResultCardState extends ConsumerState<ResultCard> {
               ),
               maxLines: 3,
               onChanged: (value) {
-                setState(() {
-                  comment = value.trim();
-                });
+                if (value.trim() != comment) {
+                  setState(() {
+                    comment = value.trim();
+                    isDirty = true;
+                  });
+                }
               },
             ),
             const SizedBox(height: 16.0),
-            FilledButton.tonal(
-              onPressed: () async {
-                final oraclesRepository = ref.read(oraclesRepositoryProvider);
-                final user = ref.read(authRepositoryProvider).currentUser;
-                if (oracleId != null) {
-                  await oraclesRepository.deleteOracle(
-                      uid: user!.uid, oracleId: oracleId!);
-                  setState(() {
-                    oracleId = null;
-                  });
-                } else {
-                  final prompt = ref.read(promptControllerProvider);
-                  final query = ref.watch(queryControllerProvider);
-                  final id = await oraclesRepository.addOracle(
-                      uid: user!.uid,
-                      promptId: prompt!.id,
-                      promptHandle: prompt.handle,
-                      input: query ?? '??',
-                      output: widget.result,
-                      comment: comment);
-                  setState(() {
-                    oracleId = id;
-                  });
-                }
-                keepIt = !keepIt;
-              },
-              child: Text(keepIt ? 'Forget' : 'Keep'),
-            ),
+            (oracleId == null)
+                ? OutlinedButton(
+                    onPressed: () async {
+                      final oraclesRepository =
+                          ref.read(oraclesRepositoryProvider);
+                      final user = ref.read(authRepositoryProvider).currentUser;
+                      final prompt = ref.read(promptControllerProvider);
+                      final query = ref.watch(queryControllerProvider);
+                      final id = await oraclesRepository.addOracle(
+                          uid: user!.uid,
+                          promptId: prompt!.id,
+                          promptHandle: prompt.handle,
+                          input: query ?? '??',
+                          output: widget.result,
+                          comment: comment);
+                      setState(() {
+                        oracleId = id;
+                        isDirty = false;
+                      });
+                    },
+                    child: Text('Save'),
+                  )
+                : Row(
+                    children: [
+                      FilledButton(
+                        onPressed: () async {
+                          final oraclesRepository =
+                              ref.read(oraclesRepositoryProvider);
+                          final user =
+                              ref.read(authRepositoryProvider).currentUser;
+                          if (oracleId != null) {
+                            await oraclesRepository.deleteOracle(
+                                uid: user!.uid, oracleId: oracleId!);
+                            setState(() {
+                              oracleId = null;
+                            });
+                          } else {
+                            final prompt = ref.read(promptControllerProvider);
+                            final query = ref.watch(queryControllerProvider);
+                            final id = await oraclesRepository.addOracle(
+                                uid: user!.uid,
+                                promptId: prompt!.id,
+                                promptHandle: prompt.handle,
+                                input: query ?? '??',
+                                output: widget.result,
+                                comment: comment);
+                            setState(() {
+                              oracleId = id;
+                            });
+                          }
+                        },
+                        child: Text('Forget'),
+                      ),
+                      OutlinedButton(
+                        onPressed: isDirty
+                            ? () async {
+                                final oraclesRepository =
+                                    ref.read(oraclesRepositoryProvider);
+                                final user = ref
+                                    .read(authRepositoryProvider)
+                                    .currentUser;
+                                await oraclesRepository.updateOracle(
+                                    uid: user!.uid,
+                                    oid: oracleId!,
+                                    data: {'comment': comment});
+                                setState(() {
+                                  isDirty = false;
+                                });
+                              }
+                            : null,
+                        child: Text('Update Comment'),
+                      ),
+                    ],
+                  )
           ],
         ),
       ),
