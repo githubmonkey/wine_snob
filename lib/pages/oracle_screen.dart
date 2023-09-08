@@ -53,10 +53,7 @@ class OracleScreenState extends ConsumerState<OracleScreen> {
         children: <Widget>[
           Text(instructionTitle, style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 16.0),
-          const SizedBox(
-            width: 200,
-            child: PromptDropdownButton(),
-          ),
+          PromptDropdownButton(),
           const SizedBox(height: 16.0),
           TextFormField(
             decoration: const InputDecoration(
