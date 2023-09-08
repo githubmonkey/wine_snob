@@ -4,7 +4,7 @@ Wine Snob - become a wine expert with AI
 
 ## Getting Started
 
-This project is part of a PaLM API demo. 
+This project is part of a PaLM API demo.
 
 ## Code generation
 
@@ -17,7 +17,7 @@ dart run build_runner watch
 
 ## Firebase emulators
 
-In debugging mode, I use the firebase emulator suite. 
+In debugging mode, I use the firebase emulator suite.
 
 ```shell
 firebase emulators:start --import ./data --export-on-exit
@@ -25,12 +25,15 @@ firebase emulators:start --import ./data --export-on-exit
 
 ## Deploy to firebase hosting
 
-Firebase deploy magic  builds and deploys the project automatically, but doesn't take extra args.
+Firebase deploy magic builds and deploys the project automatically, but doesn't take extra args.
 
 ```shell
 firebase deploy
 firebase hosting:channel:deploy beta
 ```
+
+If the indexes have changed on the hosting site it might be a good idea to
+run `firebase firestore:indexes` and update the local `firebase.indexes.json`
 
 ## Attributions
 
