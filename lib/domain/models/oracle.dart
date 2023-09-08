@@ -53,10 +53,10 @@ class Oracle extends Equatable {
     final promptHandle = data['promptHandle'] as String;
     final input = data['input'] as String;
     final output = data['output'] as String;
-    final comment = data['comment'] as String;
-    final rating = data['rating'] as int;
-    final timestamp = data['created'] as Timestamp;
-    final created = timestamp.toDate();
+    final comment = data['comment'] as String?;
+    final rating = data['rating'] as int?;
+    final timestamp = data['created'] as Timestamp?;
+    final created = timestamp?.toDate();
 
     return Oracle(
       id: id,

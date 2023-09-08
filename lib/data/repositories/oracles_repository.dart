@@ -69,12 +69,14 @@ class OraclesRepository {
           .snapshots()
           .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
 
-  Query<Oracle> queryOracles({required UserID uid}) =>
-      _firestore.collection(oraclesPath(uid)).withConverter<Oracle>(
-            fromFirestore: (snapshot, _) =>
-                Oracle.fromMap(snapshot.data()!, snapshot.id),
-            toFirestore: (oracle, _) => oracle.toMap(),
-          );
+  Query<Oracle> queryOracles({required UserID uid}) => _firestore
+      .collection(oraclesPath(uid))
+      .orderBy('created', descending: true)
+      .withConverter<Oracle>(
+        fromFirestore: (snapshot, _) =>
+            Oracle.fromMap(snapshot.data()!, snapshot.id),
+        toFirestore: (oracle, _) => oracle.toMap(),
+      );
 
   Future<void> deleteOracle(
       {required UserID uid, required OracleID oracleId}) async {

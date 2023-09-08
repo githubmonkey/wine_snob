@@ -67,6 +67,11 @@ class ScaffoldWithBottomNavBar extends StatelessWidget {
             label: 'Oracle',
           ),
           NavigationDestination(
+            icon: Icon(Icons.list),
+            selectedIcon: Icon(Icons.list),
+            label: 'History',
+          ),
+          NavigationDestination(
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person),
             label: 'Account',
@@ -104,6 +109,11 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
                 icon: Icon(Icons.question_answer_outlined),
                 selectedIcon: Icon(Icons.question_answer),
                 label: Text('Oracle'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.list),
+                selectedIcon: Icon(Icons.list),
+                label: Text('History'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.person_outline),

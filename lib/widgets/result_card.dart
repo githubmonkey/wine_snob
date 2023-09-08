@@ -42,7 +42,7 @@ class ResultCardState extends ConsumerState<ResultCard> {
                 border: OutlineInputBorder(),
                 labelText: 'Your Comment',
               ),
-              maxLines: 3,
+              maxLines: 2,
               onChanged: (value) {
                 if (value.trim() != comment) {
                   setState(() {
@@ -73,11 +73,31 @@ class ResultCardState extends ConsumerState<ResultCard> {
                         isDirty = false;
                       });
                     },
-                    child: Text('Save'),
+                    child: const Text('Save'),
                   )
                 : Row(
                     children: [
                       FilledButton(
+                        onPressed: isDirty
+                            ? () async {
+                          final oraclesRepository =
+                          ref.read(oraclesRepositoryProvider);
+                          final user = ref
+                              .read(authRepositoryProvider)
+                              .currentUser;
+                          await oraclesRepository.updateOracle(
+                              uid: user!.uid,
+                              oid: oracleId!,
+                              data: {'comment': comment});
+                          setState(() {
+                            isDirty = false;
+                          });
+                        }
+                            : null,
+                        child: const Text('Update Comment'),
+                      ),
+                      const Expanded(child: SizedBox()),
+                      OutlinedButton(
                         onPressed: () async {
                           final oraclesRepository =
                               ref.read(oraclesRepositoryProvider);
@@ -104,27 +124,9 @@ class ResultCardState extends ConsumerState<ResultCard> {
                             });
                           }
                         },
-                        child: Text('Forget'),
+                        child: const Text('Forget'),
                       ),
-                      OutlinedButton(
-                        onPressed: isDirty
-                            ? () async {
-                                final oraclesRepository =
-                                    ref.read(oraclesRepositoryProvider);
-                                final user = ref
-                                    .read(authRepositoryProvider)
-                                    .currentUser;
-                                await oraclesRepository.updateOracle(
-                                    uid: user!.uid,
-                                    oid: oracleId!,
-                                    data: {'comment': comment});
-                                setState(() {
-                                  isDirty = false;
-                                });
-                              }
-                            : null,
-                        child: Text('Update Comment'),
-                      ),
+
                     ],
                   )
           ],

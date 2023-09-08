@@ -16,8 +16,9 @@ dependencies:
   equatable: ^2.0.5
   firebase_auth: ^4.9.0
   firebase_core: ^2.15.1
-  firebase_ui_auth: ^1.7.0
-  firebase_ui_oauth_google: ^1.2.10
+  firebase_ui_auth: ^1.8.0
+  firebase_ui_firestore: ^1.5.11
+  firebase_ui_oauth_google: ^1.2.11
   flutter_riverpod: ^2.4.0
   go_router: ^10.1.2
   google_sign_in: ^6.1.5
