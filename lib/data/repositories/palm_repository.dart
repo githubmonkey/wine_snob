@@ -13,13 +13,9 @@ class PalmRepository {
   PalmRepository({required this.apiKey});
 
   final String apiKey;
-  final recordCount = 3;
-  final temperature = 0.5;
 
   Future<List<String>> fetchResults(String description, Prompt prompt) async {
-    final url =
-        Uri.parse('https://generativelanguage.googleapis.com/v1beta2/models/'
-            'chat-bison-001:generateMessage?key=$apiKey');
+    final url = Uri.parse('${prompt.uri}?key=$apiKey');
 
     final headers = {'Content-Type': 'application/json'};
 
@@ -41,9 +37,8 @@ class PalmRepository {
         final decodedResponse = json.decode(response.body);
 
         final List<String> records = [];
-        for (var i = 0; i < recordCount; i++) {
-          records.add(decodedResponse['candidates'][i]['content']);
-        }
+        decodedResponse['candidates']
+            .forEach((res) => records.add(res['content'] ?? res['output']));
         return records;
       } else {
         throw Exception(

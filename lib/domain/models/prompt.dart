@@ -9,6 +9,7 @@ class Prompt extends Equatable {
   const Prompt({
     required this.id,
     required this.handle,
+    required this.uri,
     required this.request,
     required this.comment,
     required this.active,
@@ -17,6 +18,7 @@ class Prompt extends Equatable {
 
   final PromptID id;
   final String handle;
+  final String uri;
   final String request;
   final String comment;
   final bool active;
@@ -24,13 +26,14 @@ class Prompt extends Equatable {
 
   @override
   // NOTE: ignore timestamp
-  List<Object> get props => [id, handle, request, comment, active];
+  List<Object> get props => [id, handle, uri, request, comment, active];
 
   @override
   //bool get stringify => true;
 
   factory Prompt.fromMap(Map<String, dynamic> data, String id) {
     final handle = data['handle'] as String;
+    final uri = data['uri'] as String;
     final request = data['request'] as String;
     final comment = data['comment'] as String;
     final active = data['active'] as bool;
@@ -40,6 +43,7 @@ class Prompt extends Equatable {
     return Prompt(
       id: id,
       handle: handle,
+      uri: uri,
       request: request,
       comment: comment,
       active: active,
