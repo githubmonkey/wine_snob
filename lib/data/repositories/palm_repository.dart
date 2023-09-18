@@ -21,11 +21,15 @@ class PalmRepository {
 
     final String body;
     try {
+      // Make sure the input string doesn't contain newlines or quotes
+      final sanitized =
+          description.replaceAll("\n", " ").replaceAll("\"", "'").trim();
       // String interpolation won't work so I'll just fake it.
       // Decode/encode makes sure the string is well formatted.
       body = jsonEncode(jsonDecode(
-          prompt.request.replaceAll("\${description}", description)));
+          prompt.request.replaceAll("\${description}", sanitized)));
 
+      print(body);
       //print(jsonEncode(jsonDecode(prompt.request)));
     } catch (error) {
       throw Exception('Formatting error in prompt: $error\n$prompt.request');
