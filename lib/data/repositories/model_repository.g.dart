@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'palm_repository.dart';
+part of 'model_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$palmRepositoryHash() => r'7db33e8221bbb1d3c351b28884afc9e0d7bbbfd3';
+String _$palmRepositoryHash() => r'182b7fd82fcf0447dc609d25b234c2924d400750';
 
 /// See also [palmRepository].
 @ProviderFor(palmRepository)

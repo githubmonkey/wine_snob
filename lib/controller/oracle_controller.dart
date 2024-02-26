@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:wine_snob/controller/prompt_controller.dart';
 import 'package:wine_snob/controller/query_controller.dart';
-import 'package:wine_snob/data/repositories/palm_repository.dart';
+import 'package:wine_snob/data/repositories/model_repository.dart';
 import 'package:wine_snob/domain/models/prompt.dart';
 
 part 'oracle_controller.g.dart';
