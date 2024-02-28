@@ -12,7 +12,7 @@ class OracleController extends _$OracleController {
     if (query == null || query.isEmpty || prompt == null) {
       return [];
     }
-    return ref.read(palmRepositoryProvider).fetchResults(query, prompt);
+    return ref.read(modelRepositoryProvider).fetchResults(query, prompt);
   }
 
   @override
@@ -20,7 +20,7 @@ class OracleController extends _$OracleController {
     return _fetchResults(null, null);
   }
 
-  Future<void> queryPalmAPI() async {
+  Future<void> queryModel() async {
     // Custom_lint is warning "info: Generated providers should only depend on other generated providers. Failing to do so may break rules such as "provider_dependencies". (avoid_manual_providers_as_generated_provider_dependency at [wine_snob] lib/controller/oracle_controller.dart:25)
     // This is odd. Both providers are generated.
     // ignore: avoid_manual_providers_as_generated_provider_dependency

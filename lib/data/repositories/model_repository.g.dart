@@ -6,22 +6,22 @@ part of 'model_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$palmRepositoryHash() => r'182b7fd82fcf0447dc609d25b234c2924d400750';
+String _$modelRepositoryHash() => r'44e446a74140145ceb7bbac9ff127d61d1a3329e';
 
-/// See also [palmRepository].
-@ProviderFor(palmRepository)
-final palmRepositoryProvider = Provider<PalmRepository>.internal(
-  palmRepository,
-  name: r'palmRepositoryProvider',
+/// See also [modelRepository].
+@ProviderFor(modelRepository)
+final modelRepositoryProvider = Provider<ModelRepository>.internal(
+  modelRepository,
+  name: r'modelRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$palmRepositoryHash,
+      : _$modelRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef PalmRepositoryRef = ProviderRef<PalmRepository>;
-String _$fetchResultsHash() => r'e6803b1b4b07042f4f909613fbce0928a712300e';
+typedef ModelRepositoryRef = ProviderRef<ModelRepository>;
+String _$fetchResultsHash() => r'1123f2096fe4aa5265e62865a78f5547dcbaf8cb';
 
 /// Copied from Dart SDK
 class _SystemHash {

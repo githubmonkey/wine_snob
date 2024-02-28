@@ -6,7 +6,7 @@ part of 'oracle_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$oracleControllerHash() => r'25853e7e5bd41874fab633d37c3f6e64b1bbda14';
+String _$oracleControllerHash() => r'b90655e9f9ac84b509c406257b3d2edd8f5a01c5';
 
 /// See also [OracleController].
 @ProviderFor(OracleController)

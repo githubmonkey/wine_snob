@@ -4,7 +4,7 @@ WineSnob - become a wine expert with AI
 
 ## Motivation
 
-This project is part of a PaLM API demo. It is designed to demonstrate the ease of building a prompt with MakerSuite and integrating the resulting PaLM API call into Flutter. It does not claim to be a finished product.
+This project is part of a generative AI demo. It is designed to demonstrate the ease of building a prompt with Google AI Studio and integrating the resulting model call into Flutter. It does not claim to be a finished product.
 
 [WineSnob](https://winesnob.rozendallabs.org/) is available as a web app. Feel free to try it out.
 
@@ -15,7 +15,6 @@ Several upcoming presentations will discuss the idea and aspects of the implemen
   * Droidcon Kenya, 8-10.11.2023, [slides](TDB), [video](TBD)
   * Droidcon Uganda, 11-12.11.2023, [slides](TDB), [video](TBD)
   * Flutterista conference, 11.11.2023,  [slides](TDB), [video](TBD)
-  * DevFest Munich, 2.12.2023, [slides](TDB), [video](TBD)
 
 ## Code generation
 

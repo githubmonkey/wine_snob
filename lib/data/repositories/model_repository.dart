@@ -11,8 +11,8 @@ part 'model_repository.g.dart';
 const GEMINI_PRO_VISION = 'gemini-pro-vision';
 const GEMINI_PRO = 'gemini-pro';
 
-class PalmRepository {
-  PalmRepository({required this.apiKey, required this.modelName}) {
+class ModelRepository {
+  ModelRepository({required this.apiKey, required this.modelName}) {
     model = GenerativeModel(
       model: modelName,
       apiKey: apiKey,
@@ -47,13 +47,13 @@ class PalmRepository {
 }
 
 @Riverpod(keepAlive: true)
-PalmRepository palmRepository(PalmRepositoryRef ref) {
-  return PalmRepository(apiKey: Secrets.palmApiKey, modelName: GEMINI_PRO);
+ModelRepository modelRepository(ModelRepositoryRef ref) {
+  return ModelRepository(apiKey: Secrets.modelApiKey, modelName: GEMINI_PRO);
 }
 
 @riverpod
 Future<List<String>> fetchResults(
     FetchResultsRef ref, String description, Prompt prompt) {
-  final repository = ref.watch(palmRepositoryProvider);
+  final repository = ref.watch(modelRepositoryProvider);
   return repository.fetchResults(description, prompt);
 }
