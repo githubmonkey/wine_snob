@@ -11,19 +11,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cloud_firestore: ^4.15.5
+  cloud_firestore: ^4.15.6
   cupertino_icons: ^1.0.6
   equatable: ^2.0.5
-  firebase_auth: ^4.17.5
-  firebase_core: ^2.25.4
-  firebase_ui_auth: ^1.13.0
+  firebase_auth: ^4.17.6
+  firebase_core: ^2.25.5
+  firebase_ui_auth: ^1.13.1
   firebase_ui_firestore: ^1.6.2
-  # pin to older until this is available;
-  # https://github.com/firebase/FirebaseUI-Flutter/pull/294
-  firebase_ui_oauth_google: 1.2.17
+  firebase_ui_oauth_google: ^1.3.1
   flutter_riverpod: ^2.4.10
   go_router: ^13.2.0
-  google_generative_ai: ^0.2.1
+  google_generative_ai: ^0.2.2
   google_sign_in: ^6.2.1
   http: ^1.2.0
   riverpod_annotation: ^2.3.4
