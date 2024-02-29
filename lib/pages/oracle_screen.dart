@@ -28,7 +28,7 @@ class OracleScreenState extends ConsumerState<OracleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PaLM API Demo'),
+        title: const Text('Generative AI Demo'),
       ),
       body: Center(
         child: Padding(
@@ -76,7 +76,7 @@ class OracleScreenState extends ConsumerState<OracleScreen> {
           FilledButton(
             onPressed: (() {
               if (_formKey.currentState!.validate()) {
-                ref.read(oracleControllerProvider.notifier).queryPalmAPI();
+                ref.read(oracleControllerProvider.notifier).queryModel();
               }
             }),
             child: const Text('Taste it!'),
