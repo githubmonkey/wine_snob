@@ -16,8 +16,14 @@ class ModelRepository {
     model = GenerativeModel(
       model: modelName,
       apiKey: apiKey,
-      // for now only one candidate is supported
-      generationConfig: GenerationConfig(candidateCount: 1),
+      // the rest is optional
+      safetySettings: [],
+      generationConfig: GenerationConfig(
+        // for now gemini-pro seems to support only one candidate
+        candidateCount: 1,
+        temperature: 0.7,
+        maxOutputTokens: 1024,
+      ),
     );
   }
 
@@ -33,7 +39,9 @@ class ModelRepository {
 
     // TODO: the context should come from prompt
     final text_prompt =
-        "Write tasting notes for the ${sanitized}. The tasting notes should be in the style of a wine critic and should mention the wine style, taste, and production process. Keep the result to one paragraph.";
+        "Write tasting notes for the ${sanitized}. The tasting notes should be"
+        "in the style of a wine critic and should mention the wine style, taste, "
+        "and production process.Keep the result to one paragraph.";
 
     try {
       final content = [Content.text(text_prompt)];
