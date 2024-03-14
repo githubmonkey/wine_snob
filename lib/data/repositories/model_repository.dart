@@ -38,13 +38,13 @@ class ModelRepository {
         description.replaceAll("\n", " ").replaceAll("\"", "'").trim();
 
     // TODO: the context should come from prompt
-    final text_prompt =
-        "Write tasting notes for the ${sanitized}. The tasting notes should be"
+    final textPrompt =
+        "Write tasting notes for the $sanitized. The tasting notes should be"
         "in the style of a wine critic and should mention the wine style, taste, "
         "and production process.Keep the result to one paragraph.";
 
     try {
-      final content = [Content.text(text_prompt)];
+      final content = [Content.text(textPrompt)];
       final response = await model.generateContent(content);
       // TODO: this will get more complex once larger candidate counts are supported
       return [response.text ?? 'no result'];

@@ -17,7 +17,7 @@ class OracleScreenState extends ConsumerState<OracleScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String instructionTitle =
-      'Include winery, vinyard, cultivar, vintage, style, region, name, and anything else you might have...';
+      'Include winery, vineyard, cultivar, vintage, style, region, name, and anything else you might have...';
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class OracleScreenState extends ConsumerState<OracleScreen> {
         children: <Widget>[
           Text(instructionTitle, style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 16.0),
-          PromptDropdownButton(),
+          const PromptDropdownButton(),
           const SizedBox(height: 16.0),
           TextFormField(
             decoration: const InputDecoration(
@@ -62,7 +62,9 @@ class OracleScreenState extends ConsumerState<OracleScreen> {
             ),
             maxLines: 3,
             onChanged: (value) {
-              ref.read(queryControllerProvider.notifier).updateQuery(query: value);
+              ref
+                  .read(queryControllerProvider.notifier)
+                  .updateQuery(query: value);
               ref.read(oracleControllerProvider.notifier).resetResults();
             },
             validator: (value) {
