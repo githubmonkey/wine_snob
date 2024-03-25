@@ -8,31 +8,19 @@
             "name": "wine_snob (debug mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug",
-            "toolArgs": [
-                "--dart-define-from-file",
-                "${workspaceFolder}/android/keys/api-keys.json"
-            ]
+            "flutterMode": "debug"
         },
         {
             "name": "wine_snob (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile",
-            "toolArgs": [
-                "--dart-define-from-file",
-                "${workspaceFolder}/android/keys/api-keys.json"
-            ]
+            "flutterMode": "profile"
         },
         {
             "name": "wine_snob (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release",
-            "toolArgs": [
-                "--dart-define-from-file",
-                "${workspaceFolder}/android/keys/api-keys.json"
-            ]
+            "flutterMode": "release"
         }
     ]
 }
