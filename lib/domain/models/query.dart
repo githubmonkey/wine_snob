@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
@@ -44,5 +46,10 @@ class Query extends Equatable {
     ];
 
     return Content.multi(parts);
+  }
+
+  String toContentString() {
+    var encoder = new JsonEncoder.withIndent("  ");
+    return encoder.convert(toContent().toJson());
   }
 }

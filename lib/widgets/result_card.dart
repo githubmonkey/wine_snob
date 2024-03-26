@@ -62,7 +62,7 @@ class ResultCardState extends ConsumerState<ResultCard> {
                       final id = await oraclesRepository.addOracle(
                           uid: user!.uid,
                           input: query?.input ?? '',
-                          content: query?.toContent().toJson().toString() ?? '[]',
+                          content: query?.toContentString() ?? '[]',
                           output: widget.result,
                           comment: comment);
                       setState(() {
@@ -111,8 +111,7 @@ class ResultCardState extends ConsumerState<ResultCard> {
                             final id = await oraclesRepository.addOracle(
                                 uid: user!.uid,
                                 input: query?.input ?? '',
-                                content: query?.toContent().toJson().toString() ??
-                                    '[]',
+                                content: query?.toContentString() ?? '[]',
                                 output: widget.result,
                                 comment: comment);
                             setState(() {
