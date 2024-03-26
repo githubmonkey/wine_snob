@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wine_snob/controller/prompt_controller.dart';
+import 'package:wine_snob/controller/query_controller.dart';
 
 class PromptInfo extends ConsumerStatefulWidget {
   const PromptInfo({super.key});
@@ -14,7 +14,7 @@ class PromptInfoState extends ConsumerState<PromptInfo> {
 
   @override
   Widget build(BuildContext context) {
-    final currentPrompt = ref.watch(promptControllerProvider);
+    final currentQuery = ref.watch(queryControllerProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -40,7 +40,9 @@ class PromptInfoState extends ConsumerState<PromptInfo> {
                 color: Colors.white,
                 width: Size.infinite.width,
                 padding: const EdgeInsets.all(16),
-                child: Text(currentPrompt?.request ?? 'No Prompt selected'),
+                child: Text(// currentQuery?.toContent()??
+                    // TOOD: fix
+                    'No Prompt selected'),
               ),
             )
           ]),

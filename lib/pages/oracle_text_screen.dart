@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wine_snob/controller/oracle_controller.dart';
 import 'package:wine_snob/controller/query_controller.dart';
-import 'package:wine_snob/widgets/prompt_dropdown_button.dart';
 import 'package:wine_snob/widgets/prompt_info.dart';
 import 'package:wine_snob/widgets/result_card.dart';
 
@@ -52,8 +51,6 @@ class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
       child: Column(
         children: <Widget>[
           Text(instructionTitle, style: Theme.of(context).textTheme.bodySmall),
-          const SizedBox(height: 16.0),
-          const PromptDropdownButton(),
           const SizedBox(height: 16.0),
           TextFormField(
             decoration: const InputDecoration(

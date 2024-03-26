@@ -21,7 +21,7 @@ final modelRepositoryProvider = Provider<ModelRepository>.internal(
 );
 
 typedef ModelRepositoryRef = ProviderRef<ModelRepository>;
-String _$fetchResultsHash() => r'1123f2096fe4aa5265e62865a78f5547dcbaf8cb';
+String _$fetchResultsHash() => r'2de4eaca7e34d71cb727883ae27543d8e9713abe';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -56,11 +56,9 @@ class FetchResultsFamily extends Family<AsyncValue<List<String>>> {
   /// See also [fetchResults].
   FetchResultsProvider call(
     String description,
-    Prompt prompt,
   ) {
     return FetchResultsProvider(
       description,
-      prompt,
     );
   }
 
@@ -70,7 +68,6 @@ class FetchResultsFamily extends Family<AsyncValue<List<String>>> {
   ) {
     return call(
       provider.description,
-      provider.prompt,
     );
   }
 
@@ -94,12 +91,10 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
   /// See also [fetchResults].
   FetchResultsProvider(
     String description,
-    Prompt prompt,
   ) : this._internal(
           (ref) => fetchResults(
             ref as FetchResultsRef,
             description,
-            prompt,
           ),
           from: fetchResultsProvider,
           name: r'fetchResultsProvider',
@@ -111,7 +106,6 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
           allTransitiveDependencies:
               FetchResultsFamily._allTransitiveDependencies,
           description: description,
-          prompt: prompt,
         );
 
   FetchResultsProvider._internal(
@@ -122,11 +116,9 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.description,
-    required this.prompt,
   }) : super.internal();
 
   final String description;
-  final Prompt prompt;
 
   @override
   Override overrideWith(
@@ -142,7 +134,6 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         description: description,
-        prompt: prompt,
       ),
     );
   }
@@ -154,16 +145,13 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
 
   @override
   bool operator ==(Object other) {
-    return other is FetchResultsProvider &&
-        other.description == description &&
-        other.prompt == prompt;
+    return other is FetchResultsProvider && other.description == description;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, description.hashCode);
-    hash = _SystemHash.combine(hash, prompt.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -172,9 +160,6 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
 mixin FetchResultsRef on AutoDisposeFutureProviderRef<List<String>> {
   /// The parameter `description` of this provider.
   String get description;
-
-  /// The parameter `prompt` of this provider.
-  Prompt get prompt;
 }
 
 class _FetchResultsProviderElement
@@ -184,8 +169,6 @@ class _FetchResultsProviderElement
 
   @override
   String get description => (origin as FetchResultsProvider).description;
-  @override
-  Prompt get prompt => (origin as FetchResultsProvider).prompt;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -3,7 +3,6 @@ import 'dart:core';
 
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:wine_snob/domain/models/prompt.dart';
 import 'package:wine_snob/keys/secrets.dart';
 
 part 'model_repository.g.dart';
@@ -32,7 +31,7 @@ class ModelRepository {
 
   late GenerativeModel model;
 
-  Future<List<String>> fetchResults(String description, Prompt prompt) async {
+  Future<List<String>> fetchResults(String description) async {
     // Make sure the input string doesn't contain newlines or quotes
     final sanitized =
         description.replaceAll("\n", " ").replaceAll("\"", "'").trim();
@@ -61,7 +60,7 @@ ModelRepository modelRepository(ModelRepositoryRef ref) {
 
 @riverpod
 Future<List<String>> fetchResults(
-    FetchResultsRef ref, String description, Prompt prompt) {
+    FetchResultsRef ref, String description) {
   final repository = ref.watch(modelRepositoryProvider);
-  return repository.fetchResults(description, prompt);
+  return repository.fetchResults(description);
 }

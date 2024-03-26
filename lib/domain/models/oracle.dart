@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:wine_snob/domain/models/prompt.dart';
 
 import 'app_user.dart';
 
@@ -12,9 +11,8 @@ class Oracle extends Equatable {
   const Oracle({
     required this.id,
     required this.uid,
-    required this.promptId,
-    required this.promptHandle,
     required this.input,
+    required this.content,
     required this.output,
     this.comment,
     this.rating,
@@ -23,9 +21,8 @@ class Oracle extends Equatable {
 
   final OracleID id;
   final UserID uid;
-  final PromptID promptId;
-  final String promptHandle;
   final String input;
+  final String content;
   final String output;
   final String? comment;
   final int? rating;
@@ -35,9 +32,8 @@ class Oracle extends Equatable {
   List<Object> get props => [
         id,
         uid,
-        promptId,
-        promptHandle,
         input,
+        content,
         output,
         comment ?? '',
         rating ?? '',
@@ -49,9 +45,8 @@ class Oracle extends Equatable {
 
   factory Oracle.fromMap(Map<String, dynamic> data, String id) {
     final uid = data['uid'] as String;
-    final promptId = data['promptId'] as String;
-    final promptHandle = data['promptHandle'] as String;
     final input = data['input'] as String;
+    final content = data['content'] as String;
     final output = data['output'] as String;
     final comment = data['comment'] as String?;
     final rating = data['rating'] as int?;
@@ -61,9 +56,8 @@ class Oracle extends Equatable {
     return Oracle(
       id: id,
       uid: uid,
-      promptId: promptId,
-      promptHandle: promptHandle,
       input: input,
+      content: content,
       output: output,
       comment: comment,
       rating: rating,
@@ -74,9 +68,8 @@ class Oracle extends Equatable {
   Oracle copyWith({id, name, catId, catName}) => Oracle(
         id: id ?? this.id,
         uid: uid,
-        promptId: promptId,
-        promptHandle: promptHandle,
         input: input,
+        content: content,
         output: output,
         comment: comment ?? comment,
         rating: rating ?? rating,
@@ -86,9 +79,8 @@ class Oracle extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
-      'promptId': promptId,
-      'promptHandle': promptHandle,
       'input': input,
+      'content': content,
       'output': output,
       'comment': comment,
       'rating': rating,

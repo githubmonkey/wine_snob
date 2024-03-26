@@ -38,7 +38,7 @@ class ResultCardState extends ConsumerState<HistoryCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-                '${widget.oracle.id}; ${widget.oracle.promptHandle}, ${widget.oracle.created}',
+                '${widget.oracle.id}; ${widget.oracle.created}',
                 style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 16.0),
             Text(widget.oracle.input),

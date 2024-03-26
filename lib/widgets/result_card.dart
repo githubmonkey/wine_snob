@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wine_snob/controller/prompt_controller.dart';
 import 'package:wine_snob/controller/query_controller.dart';
 import 'package:wine_snob/data/repositories/firebase_auth_repository.dart';
 import 'package:wine_snob/data/repositories/oracles_repository.dart';
@@ -59,13 +58,12 @@ class ResultCardState extends ConsumerState<ResultCard> {
                       final oraclesRepository =
                           ref.read(oraclesRepositoryProvider);
                       final user = ref.read(authRepositoryProvider).currentUser;
-                      final prompt = ref.read(promptControllerProvider);
                       final query = ref.watch(queryControllerProvider);
                       final id = await oraclesRepository.addOracle(
                           uid: user!.uid,
-                          promptId: prompt!.id,
-                          promptHandle: prompt.handle,
                           input: query ?? '??',
+                          // TODO: fix
+                          content: '',
                           output: widget.result,
                           comment: comment);
                       setState(() {
@@ -110,13 +108,12 @@ class ResultCardState extends ConsumerState<ResultCard> {
                               oracleId = null;
                             });
                           } else {
-                            final prompt = ref.read(promptControllerProvider);
                             final query = ref.watch(queryControllerProvider);
                             final id = await oraclesRepository.addOracle(
                                 uid: user!.uid,
-                                promptId: prompt!.id,
-                                promptHandle: prompt.handle,
                                 input: query ?? '??',
+                                // TODO: Fix
+                                content: '',
                                 output: widget.result,
                                 comment: comment);
                             setState(() {
