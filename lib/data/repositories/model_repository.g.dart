@@ -21,7 +21,7 @@ final modelRepositoryProvider = Provider<ModelRepository>.internal(
 );
 
 typedef ModelRepositoryRef = ProviderRef<ModelRepository>;
-String _$fetchResultsHash() => r'2de4eaca7e34d71cb727883ae27543d8e9713abe';
+String _$fetchResultsHash() => r'80369054ce76e9bc7ef3c0c63b6a181e1c8317b6';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -55,10 +55,10 @@ class FetchResultsFamily extends Family<AsyncValue<List<String>>> {
 
   /// See also [fetchResults].
   FetchResultsProvider call(
-    String description,
+    Iterable<Content> content,
   ) {
     return FetchResultsProvider(
-      description,
+      content,
     );
   }
 
@@ -67,7 +67,7 @@ class FetchResultsFamily extends Family<AsyncValue<List<String>>> {
     covariant FetchResultsProvider provider,
   ) {
     return call(
-      provider.description,
+      provider.content,
     );
   }
 
@@ -90,11 +90,11 @@ class FetchResultsFamily extends Family<AsyncValue<List<String>>> {
 class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
   /// See also [fetchResults].
   FetchResultsProvider(
-    String description,
+    Iterable<Content> content,
   ) : this._internal(
           (ref) => fetchResults(
             ref as FetchResultsRef,
-            description,
+            content,
           ),
           from: fetchResultsProvider,
           name: r'fetchResultsProvider',
@@ -105,7 +105,7 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
           dependencies: FetchResultsFamily._dependencies,
           allTransitiveDependencies:
               FetchResultsFamily._allTransitiveDependencies,
-          description: description,
+          content: content,
         );
 
   FetchResultsProvider._internal(
@@ -115,10 +115,10 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.description,
+    required this.content,
   }) : super.internal();
 
-  final String description;
+  final Iterable<Content> content;
 
   @override
   Override overrideWith(
@@ -133,7 +133,7 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        description: description,
+        content: content,
       ),
     );
   }
@@ -145,21 +145,21 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
 
   @override
   bool operator ==(Object other) {
-    return other is FetchResultsProvider && other.description == description;
+    return other is FetchResultsProvider && other.content == content;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, description.hashCode);
+    hash = _SystemHash.combine(hash, content.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
 mixin FetchResultsRef on AutoDisposeFutureProviderRef<List<String>> {
-  /// The parameter `description` of this provider.
-  String get description;
+  /// The parameter `content` of this provider.
+  Iterable<Content> get content;
 }
 
 class _FetchResultsProviderElement
@@ -168,7 +168,7 @@ class _FetchResultsProviderElement
   _FetchResultsProviderElement(super.provider);
 
   @override
-  String get description => (origin as FetchResultsProvider).description;
+  Iterable<Content> get content => (origin as FetchResultsProvider).content;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

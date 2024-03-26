@@ -33,6 +33,7 @@ class Oracle extends Equatable {
         id,
         uid,
         input,
+        // this is the message content, so the prompt
         content,
         output,
         comment ?? '',
@@ -65,12 +66,21 @@ class Oracle extends Equatable {
     );
   }
 
-  Oracle copyWith({id, name, catId, catName}) => Oracle(
+  Oracle copyWith({
+    id,
+    input,
+    content,
+    output,
+    comment,
+    rating,
+    created,
+  }) =>
+      Oracle(
         id: id ?? this.id,
         uid: uid,
-        input: input,
-        content: content,
-        output: output,
+        input: input ?? input,
+        content: content ?? content,
+        output: output ?? output,
         comment: comment ?? comment,
         rating: rating ?? rating,
         created: created ?? created,

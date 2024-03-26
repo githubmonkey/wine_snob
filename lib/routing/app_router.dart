@@ -22,8 +22,8 @@ final _accountNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'account');
 enum AppRoute {
   signIn,
   profile,
-  oracle_text,
-  oracle_multimodal,
+  oracletext,
+  oraclemultimodal,
   history,
   account,
 }
@@ -71,7 +71,7 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/oracle_text',
-                name: AppRoute.oracle_text.name,
+                name: AppRoute.oracletext.name,
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
                   child: const OracleTextScreen(),
@@ -84,7 +84,7 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/oracle_multimodal',
-                name: AppRoute.oracle_multimodal.name,
+                name: AppRoute.oraclemultimodal.name,
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
                   child: const OracleMultimodalScreen(),

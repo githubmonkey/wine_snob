@@ -61,9 +61,8 @@ class ResultCardState extends ConsumerState<ResultCard> {
                       final query = ref.watch(queryControllerProvider);
                       final id = await oraclesRepository.addOracle(
                           uid: user!.uid,
-                          input: query ?? '??',
-                          // TODO: fix
-                          content: '',
+                          input: query?.input ?? '',
+                          content: query?.toContent().toJson().toString() ?? '[]',
                           output: widget.result,
                           comment: comment);
                       setState(() {
@@ -78,19 +77,19 @@ class ResultCardState extends ConsumerState<ResultCard> {
                       FilledButton(
                         onPressed: isDirty
                             ? () async {
-                          final oraclesRepository =
-                          ref.read(oraclesRepositoryProvider);
-                          final user = ref
-                              .read(authRepositoryProvider)
-                              .currentUser;
-                          await oraclesRepository.updateOracle(
-                              uid: user!.uid,
-                              oid: oracleId!,
-                              data: {'comment': comment});
-                          setState(() {
-                            isDirty = false;
-                          });
-                        }
+                                final oraclesRepository =
+                                    ref.read(oraclesRepositoryProvider);
+                                final user = ref
+                                    .read(authRepositoryProvider)
+                                    .currentUser;
+                                await oraclesRepository.updateOracle(
+                                    uid: user!.uid,
+                                    oid: oracleId!,
+                                    data: {'comment': comment});
+                                setState(() {
+                                  isDirty = false;
+                                });
+                              }
                             : null,
                         child: const Text('Update Comment'),
                       ),
@@ -111,9 +110,9 @@ class ResultCardState extends ConsumerState<ResultCard> {
                             final query = ref.watch(queryControllerProvider);
                             final id = await oraclesRepository.addOracle(
                                 uid: user!.uid,
-                                input: query ?? '??',
-                                // TODO: Fix
-                                content: '',
+                                input: query?.input ?? '',
+                                content: query?.toContent().toJson().toString() ??
+                                    '[]',
                                 output: widget.result,
                                 comment: comment);
                             setState(() {
@@ -123,7 +122,6 @@ class ResultCardState extends ConsumerState<ResultCard> {
                         },
                         child: const Text('Forget'),
                       ),
-
                     ],
                   )
           ],

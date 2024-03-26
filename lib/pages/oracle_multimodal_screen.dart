@@ -61,7 +61,7 @@ class OracleMultimodalScreenState extends ConsumerState<OracleMultimodalScreen> 
             onChanged: (value) {
               ref
                   .read(queryControllerProvider.notifier)
-                  .updateQuery(query: value);
+                  .updateInput(input: value);
               ref.read(oracleControllerProvider.notifier).resetResults();
             },
             validator: (value) {
