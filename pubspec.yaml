@@ -20,7 +20,7 @@ dependencies:
   firebase_ui_firestore: ^1.6.2
   firebase_ui_oauth_google: ^1.3.1
   flutter_riverpod: ^2.5.1
-  go_router: ^13.2.0
+  go_router: ^13.2.1
   google_generative_ai: ^0.2.2
   google_sign_in: ^6.2.1
   http: ^1.2.1
@@ -31,7 +31,7 @@ dev_dependencies:
     sdk: flutter
 
   build_runner: ^2.4.8
-  custom_lint: ^0.6.2
+  custom_lint: ^0.6.4
   flutter_lints: ^3.0.1
   riverpod_generator: ^2.4.0
   riverpod_lint: ^2.3.10
