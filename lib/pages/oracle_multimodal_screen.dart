@@ -6,18 +6,18 @@ import 'package:wine_snob/widgets/prompt_dropdown_button.dart';
 import 'package:wine_snob/widgets/prompt_info.dart';
 import 'package:wine_snob/widgets/result_card.dart';
 
-class OracleScreen extends ConsumerStatefulWidget {
-  const OracleScreen({super.key});
+class OracleMultimodalScreen extends ConsumerStatefulWidget {
+  const OracleMultimodalScreen({super.key});
 
   @override
-  OracleScreenState createState() => OracleScreenState();
+  OracleMultimodalScreenState createState() => OracleMultimodalScreenState();
 }
 
-class OracleScreenState extends ConsumerState<OracleScreen> {
+class OracleMultimodalScreenState extends ConsumerState<OracleMultimodalScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String instructionTitle =
-      'Include winery, vineyard, cultivar, vintage, style, region, name, and anything else you might have...';
+      'Upload some photos and adjust the text as needed.';
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class OracleScreenState extends ConsumerState<OracleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Generative AI Demo'),
+        title: const Text('Generative AI Demo - Multimodal Prompt'),
       ),
       body: Center(
         child: Padding(
