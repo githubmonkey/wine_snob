@@ -16,9 +16,8 @@ class OracleTextScreen extends ConsumerStatefulWidget {
 class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  String instructionTitle = 'Provide details of a wine.\n'
-      'Include winery, vineyard, cultivar, vintage, style, region, name, '
-      'and anything else you might have...';
+  String instructionTitle = 'Provide details of a wine including winery, '
+      'vineyard, cultivar, vintage, style, region, name, etc.';
 
   @override
   void initState() {
@@ -77,7 +76,7 @@ class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
           TextFormField(
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
-              labelText: "Full Text Prompt (contains pattern $INPUT_PLACEHOLDER)",
+              labelText: "Full Text Prompt (with pattern '$INPUT_PLACEHOLDER')",
             ),
             initialValue: TEXT_TEMPLATE,
             maxLines: 3,

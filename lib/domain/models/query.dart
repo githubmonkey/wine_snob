@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 const TEXT_TEMPLATE =
-    'Write tasting notes for the $INPUT_PLACEHOLDER. The tasting notes should be'
+    'Write tasting notes for $INPUT_PLACEHOLDER. The tasting notes should be'
     'in the style of a wine critic and should mention the wine style, taste, '
     'and production process.Keep the result to one paragraph.';
 
@@ -49,7 +49,7 @@ class Query extends Equatable {
   }
 
   String toContentString() {
-    var encoder = new JsonEncoder.withIndent("  ");
+    var encoder = const JsonEncoder.withIndent("  ");
     return encoder.convert(toContent().toJson());
   }
 }

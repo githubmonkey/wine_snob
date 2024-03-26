@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wine_snob/data/repositories/firebase_auth_repository.dart';
 import 'package:wine_snob/data/repositories/oracles_repository.dart';
 import 'package:wine_snob/domain/models/oracle.dart';
+import 'package:wine_snob/widgets/expansion_block.dart';
 
 class HistoryCard extends ConsumerStatefulWidget {
   const HistoryCard({super.key, required this.oracle});
@@ -37,14 +38,14 @@ class ResultCardState extends ConsumerState<HistoryCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-                '${widget.oracle.id}; ${widget.oracle.created}',
+            Text('${widget.oracle.id}; ${widget.oracle.created}',
                 style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 16.0),
-            Text(widget.oracle.input),
-            const Divider(),
+            ExpansionBlock(
+              title: widget.oracle.input,
+              body: widget.oracle.content,
+            ),
             Text(widget.oracle.output),
-            const SizedBox(height: 16.0),
+           const SizedBox(height: 16.0),
             TextField(
               controller: _comment,
               decoration: const InputDecoration(
