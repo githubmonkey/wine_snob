@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'query_controller.dart';
+part of 'images_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryControllerHash() => r'a0318f5838db5e308fe328b7fdbdc87fcb459ae8';
+String _$imagesControllerHash() => r'5655b54306d95c406120d8cff8c81eeadbd34077';
 
-/// See also [QueryController].
-@ProviderFor(QueryController)
-final queryControllerProvider =
-    NotifierProvider<QueryController, Query?>.internal(
-  QueryController.new,
-  name: r'queryControllerProvider',
+/// See also [ImagesController].
+@ProviderFor(ImagesController)
+final imagesControllerProvider =
+    AutoDisposeAsyncNotifierProvider<ImagesController, List<XFile>>.internal(
+  ImagesController.new,
+  name: r'imagesControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$queryControllerHash,
+      : _$imagesControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$QueryController = Notifier<Query?>;
+typedef _$ImagesController = AutoDisposeAsyncNotifier<List<XFile>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

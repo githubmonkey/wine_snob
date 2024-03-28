@@ -42,7 +42,7 @@ class ResultCardState extends ConsumerState<HistoryCard> {
                 style: Theme.of(context).textTheme.titleMedium),
             ExpansionBlock(
               title: widget.oracle.input,
-              body: widget.oracle.content,
+              child: Text(widget.oracle.content),
             ),
             Text(widget.oracle.output),
            const SizedBox(height: 16.0),

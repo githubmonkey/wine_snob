@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wine_snob/controller/query_controller.dart';
+import 'package:wine_snob/controller/query_text_controller.dart';
 import 'package:wine_snob/data/repositories/firebase_auth_repository.dart';
 import 'package:wine_snob/data/repositories/oracles_repository.dart';
 
@@ -58,11 +58,12 @@ class ResultCardState extends ConsumerState<ResultCard> {
                       final oraclesRepository =
                           ref.read(oraclesRepositoryProvider);
                       final user = ref.read(authRepositoryProvider).currentUser;
-                      final query = ref.watch(queryControllerProvider);
+                      final query = ref.watch(queryTextControllerProvider);
                       final id = await oraclesRepository.addOracle(
                           uid: user!.uid,
-                          input: query?.input ?? '',
-                          content: query?.toContentString() ?? '[]',
+                          input: query.input ?? '',
+                          content: '[]',
+                          //query?.toContentString() ?? '[]',
                           output: widget.result,
                           comment: comment);
                       setState(() {
@@ -107,11 +108,12 @@ class ResultCardState extends ConsumerState<ResultCard> {
                               oracleId = null;
                             });
                           } else {
-                            final query = ref.watch(queryControllerProvider);
+                            final query = ref.watch(queryTextControllerProvider);
                             final id = await oraclesRepository.addOracle(
                                 uid: user!.uid,
-                                input: query?.input ?? '',
-                                content: query?.toContentString() ?? '[]',
+                                input: query.input ?? '',
+                                content: '[]',
+                                // query?.toContentString() ?? '[]',
                                 output: widget.result,
                                 comment: comment);
                             setState(() {
