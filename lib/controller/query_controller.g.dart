@@ -6,12 +6,12 @@ part of 'query_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryControllerHash() => r'8064627dbdae2db7890e09c3f384deef0c6dcdb3';
+String _$queryControllerHash() => r'a0318f5838db5e308fe328b7fdbdc87fcb459ae8';
 
 /// See also [QueryController].
 @ProviderFor(QueryController)
 final queryControllerProvider =
-    NotifierProvider<QueryController, String?>.internal(
+    NotifierProvider<QueryController, Query?>.internal(
   QueryController.new,
   name: r'queryControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +21,6 @@ final queryControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$QueryController = Notifier<String?>;
+typedef _$QueryController = Notifier<Query?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:wine_snob/data/repositories/firebase_auth_repository.dart';
 import 'package:wine_snob/domain/models/oracle.dart';
-import 'package:wine_snob/domain/models/prompt.dart';
 
 import '../../domain/models/app_user.dart';
 
@@ -23,9 +22,8 @@ class OraclesRepository {
 // create
   Future<String> addOracle({
     required UserID uid,
-    required PromptID promptId,
-    required String promptHandle,
     required String input,
+    required String content,
     required String output,
     required String comment,
   }) async {
@@ -33,9 +31,8 @@ class OraclesRepository {
     await doc.set({
       'id': doc.id,
       'uid': uid,
-      'promptId': promptId,
-      'promptHandle': promptHandle,
       'input': input,
+      'content': content,
       'output': output,
       'comment': comment,
       'created': FieldValue.serverTimestamp()

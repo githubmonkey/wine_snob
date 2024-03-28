@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wine_snob/controller/oracle_controller.dart';
 import 'package:wine_snob/controller/query_controller.dart';
-import 'package:wine_snob/widgets/prompt_dropdown_button.dart';
+import 'package:wine_snob/domain/models/query.dart';
 import 'package:wine_snob/widgets/prompt_info.dart';
 import 'package:wine_snob/widgets/result_card.dart';
 
-class OracleScreen extends ConsumerStatefulWidget {
-  const OracleScreen({super.key});
+class OracleTextScreen extends ConsumerStatefulWidget {
+  const OracleTextScreen({super.key});
 
   @override
-  OracleScreenState createState() => OracleScreenState();
+  OracleTextScreenState createState() => OracleTextScreenState();
 }
 
-class OracleScreenState extends ConsumerState<OracleScreen> {
+class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  String instructionTitle =
-      'Include winery, vineyard, cultivar, vintage, style, region, name, and anything else you might have...';
+  String instructionTitle = 'Provide details of a wine including winery, '
+      'vineyard, cultivar, vintage, style, region, name, etc.';
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class OracleScreenState extends ConsumerState<OracleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Generative AI Demo'),
+        title: const Text('Generative AI Demo - Text Prompt'),
       ),
       body: Center(
         child: Padding(
@@ -53,23 +53,45 @@ class OracleScreenState extends ConsumerState<OracleScreen> {
         children: <Widget>[
           Text(instructionTitle, style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 16.0),
-          const PromptDropdownButton(),
-          const SizedBox(height: 16.0),
           TextFormField(
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'About the wine',
+              labelText: 'About your wine',
             ),
-            maxLines: 3,
+            maxLines: 1,
             onChanged: (value) {
               ref
                   .read(queryControllerProvider.notifier)
-                  .updateQuery(query: value);
+                  .updateInput(input: value);
               ref.read(oracleControllerProvider.notifier).resetResults();
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter a description here';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16.0),
+          TextFormField(
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Full Text Prompt (with pattern '$INPUT_PLACEHOLDER')",
+            ),
+            initialValue: TEXT_TEMPLATE,
+            maxLines: 3,
+            onChanged: (value) {
+              ref
+                  .read(queryControllerProvider.notifier)
+                  .updateScaffold(scaffold: value);
+              ref.read(oracleControllerProvider.notifier).resetResults();
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "This can't be empty";
+              }
+              if (!value.contains(INPUT_PLACEHOLDER)) {
+                return "The string must contain the placeholder $INPUT_PLACEHOLDER";
               }
               return null;
             },

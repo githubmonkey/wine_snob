@@ -21,7 +21,7 @@ final modelRepositoryProvider = Provider<ModelRepository>.internal(
 );
 
 typedef ModelRepositoryRef = ProviderRef<ModelRepository>;
-String _$fetchResultsHash() => r'1123f2096fe4aa5265e62865a78f5547dcbaf8cb';
+String _$fetchResultsHash() => r'80369054ce76e9bc7ef3c0c63b6a181e1c8317b6';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -55,12 +55,10 @@ class FetchResultsFamily extends Family<AsyncValue<List<String>>> {
 
   /// See also [fetchResults].
   FetchResultsProvider call(
-    String description,
-    Prompt prompt,
+    Iterable<Content> content,
   ) {
     return FetchResultsProvider(
-      description,
-      prompt,
+      content,
     );
   }
 
@@ -69,8 +67,7 @@ class FetchResultsFamily extends Family<AsyncValue<List<String>>> {
     covariant FetchResultsProvider provider,
   ) {
     return call(
-      provider.description,
-      provider.prompt,
+      provider.content,
     );
   }
 
@@ -93,13 +90,11 @@ class FetchResultsFamily extends Family<AsyncValue<List<String>>> {
 class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
   /// See also [fetchResults].
   FetchResultsProvider(
-    String description,
-    Prompt prompt,
+    Iterable<Content> content,
   ) : this._internal(
           (ref) => fetchResults(
             ref as FetchResultsRef,
-            description,
-            prompt,
+            content,
           ),
           from: fetchResultsProvider,
           name: r'fetchResultsProvider',
@@ -110,8 +105,7 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
           dependencies: FetchResultsFamily._dependencies,
           allTransitiveDependencies:
               FetchResultsFamily._allTransitiveDependencies,
-          description: description,
-          prompt: prompt,
+          content: content,
         );
 
   FetchResultsProvider._internal(
@@ -121,12 +115,10 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.description,
-    required this.prompt,
+    required this.content,
   }) : super.internal();
 
-  final String description;
-  final Prompt prompt;
+  final Iterable<Content> content;
 
   @override
   Override overrideWith(
@@ -141,8 +133,7 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        description: description,
-        prompt: prompt,
+        content: content,
       ),
     );
   }
@@ -154,27 +145,21 @@ class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
 
   @override
   bool operator ==(Object other) {
-    return other is FetchResultsProvider &&
-        other.description == description &&
-        other.prompt == prompt;
+    return other is FetchResultsProvider && other.content == content;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, description.hashCode);
-    hash = _SystemHash.combine(hash, prompt.hashCode);
+    hash = _SystemHash.combine(hash, content.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
 mixin FetchResultsRef on AutoDisposeFutureProviderRef<List<String>> {
-  /// The parameter `description` of this provider.
-  String get description;
-
-  /// The parameter `prompt` of this provider.
-  Prompt get prompt;
+  /// The parameter `content` of this provider.
+  Iterable<Content> get content;
 }
 
 class _FetchResultsProviderElement
@@ -183,9 +168,7 @@ class _FetchResultsProviderElement
   _FetchResultsProviderElement(super.provider);
 
   @override
-  String get description => (origin as FetchResultsProvider).description;
-  @override
-  Prompt get prompt => (origin as FetchResultsProvider).prompt;
+  Iterable<Content> get content => (origin as FetchResultsProvider).content;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

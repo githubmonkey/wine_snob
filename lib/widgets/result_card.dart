@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wine_snob/controller/prompt_controller.dart';
 import 'package:wine_snob/controller/query_controller.dart';
 import 'package:wine_snob/data/repositories/firebase_auth_repository.dart';
 import 'package:wine_snob/data/repositories/oracles_repository.dart';
@@ -59,13 +58,11 @@ class ResultCardState extends ConsumerState<ResultCard> {
                       final oraclesRepository =
                           ref.read(oraclesRepositoryProvider);
                       final user = ref.read(authRepositoryProvider).currentUser;
-                      final prompt = ref.read(promptControllerProvider);
                       final query = ref.watch(queryControllerProvider);
                       final id = await oraclesRepository.addOracle(
                           uid: user!.uid,
-                          promptId: prompt!.id,
-                          promptHandle: prompt.handle,
-                          input: query ?? '??',
+                          input: query?.input ?? '',
+                          content: query?.toContentString() ?? '[]',
                           output: widget.result,
                           comment: comment);
                       setState(() {
@@ -80,19 +77,19 @@ class ResultCardState extends ConsumerState<ResultCard> {
                       FilledButton(
                         onPressed: isDirty
                             ? () async {
-                          final oraclesRepository =
-                          ref.read(oraclesRepositoryProvider);
-                          final user = ref
-                              .read(authRepositoryProvider)
-                              .currentUser;
-                          await oraclesRepository.updateOracle(
-                              uid: user!.uid,
-                              oid: oracleId!,
-                              data: {'comment': comment});
-                          setState(() {
-                            isDirty = false;
-                          });
-                        }
+                                final oraclesRepository =
+                                    ref.read(oraclesRepositoryProvider);
+                                final user = ref
+                                    .read(authRepositoryProvider)
+                                    .currentUser;
+                                await oraclesRepository.updateOracle(
+                                    uid: user!.uid,
+                                    oid: oracleId!,
+                                    data: {'comment': comment});
+                                setState(() {
+                                  isDirty = false;
+                                });
+                              }
                             : null,
                         child: const Text('Update Comment'),
                       ),
@@ -110,13 +107,11 @@ class ResultCardState extends ConsumerState<ResultCard> {
                               oracleId = null;
                             });
                           } else {
-                            final prompt = ref.read(promptControllerProvider);
                             final query = ref.watch(queryControllerProvider);
                             final id = await oraclesRepository.addOracle(
                                 uid: user!.uid,
-                                promptId: prompt!.id,
-                                promptHandle: prompt.handle,
-                                input: query ?? '??',
+                                input: query?.input ?? '',
+                                content: query?.toContentString() ?? '[]',
                                 output: widget.result,
                                 comment: comment);
                             setState(() {
@@ -126,7 +121,6 @@ class ResultCardState extends ConsumerState<ResultCard> {
                         },
                         child: const Text('Forget'),
                       ),
-
                     ],
                   )
           ],

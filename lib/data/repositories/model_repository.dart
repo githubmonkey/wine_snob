@@ -3,7 +3,6 @@ import 'dart:core';
 
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:wine_snob/domain/models/prompt.dart';
 import 'package:wine_snob/keys/secrets.dart';
 
 part 'model_repository.g.dart';
@@ -32,19 +31,8 @@ class ModelRepository {
 
   late GenerativeModel model;
 
-  Future<List<String>> fetchResults(String description, Prompt prompt) async {
-    // Make sure the input string doesn't contain newlines or quotes
-    final sanitized =
-        description.replaceAll("\n", " ").replaceAll("\"", "'").trim();
-
-    // TODO: the context should come from prompt
-    final textPrompt =
-        "Write tasting notes for the $sanitized. The tasting notes should be"
-        "in the style of a wine critic and should mention the wine style, taste, "
-        "and production process.Keep the result to one paragraph.";
-
+  Future<List<String>> fetchResults(Iterable<Content> content) async {
     try {
-      final content = [Content.text(textPrompt)];
       final response = await model.generateContent(content);
       // TODO: this will get more complex once larger candidate counts are supported
       return [response.text ?? 'no result'];
@@ -61,7 +49,7 @@ ModelRepository modelRepository(ModelRepositoryRef ref) {
 
 @riverpod
 Future<List<String>> fetchResults(
-    FetchResultsRef ref, String description, Prompt prompt) {
+    FetchResultsRef ref, Iterable<Content> content) {
   final repository = ref.watch(modelRepositoryProvider);
-  return repository.fetchResults(description, prompt);
+  return repository.fetchResults(content);
 }
