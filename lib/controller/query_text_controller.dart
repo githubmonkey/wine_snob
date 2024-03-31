@@ -6,8 +6,8 @@ part 'query_text_controller.g.dart';
 @Riverpod(keepAlive: true)
 class QueryTextController extends _$QueryTextController {
   @override
-  Query build() {
-    return const Query();
+  TextQuery build() {
+    return const TextQuery();
   }
 
   void updateInput({required String? input}) {

@@ -7,7 +7,7 @@ part of 'oracle_text_controller.dart';
 // **************************************************************************
 
 String _$oracleTextControllerHash() =>
-    r'1c6d8754a064db0b7f7c3e6efc8948423f088093';
+    r'362d3f680accfda209e5f7ec518c76f3c5e44b13';
 
 /// See also [OracleTextController].
 @ProviderFor(OracleTextController)

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:wine_snob/controller/oracle_multimedia_controller.dart';
 import 'package:wine_snob/controller/query_multimodal_controller.dart';
 import 'package:wine_snob/domain/models/query.dart';
@@ -38,27 +37,15 @@ class OracleMultimodalScreenState
         child: Center(
           child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: <Widget>[
-                  buildTopView(),
-                  const SizedBox(height: 10.0),
-                  buildBottomView(),
-                  const SizedBox(height: 10.0),
-                  ExpansionBlock(
+              child: Column(children: <Widget>[
+                buildTopView(),
+                const SizedBox(height: 10.0),
+                buildBottomView(),
+                const SizedBox(height: 10.0),
+                ExpansionBlock(
                     title: 'Full prompt',
-                    child: FutureBuilder<Content>(
-                        future: currentQuery.toContentForMultimodal(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<Content> snapshot) {
-                          if (snapshot.hasData) {
-                            return Text(Query.prettyPrint(snapshot.data));
-                          } else {
-                            return const Text('...');
-                          }
-                        }),
-                  ),
-                ],
-              )),
+                    child: Text(currentQuery.toPrettyPrintedContent())),
+              ])),
         ),
       ),
     );
@@ -84,7 +71,9 @@ class OracleMultimodalScreenState
               ref
                   .read(queryMultimodalControllerProvider.notifier)
                   .updateText(text: value);
-              ref.read(oracleMultimediaControllerProvider.notifier).resetResults();
+              ref
+                  .read(oracleMultimediaControllerProvider.notifier)
+                  .resetResults();
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -116,13 +105,14 @@ class OracleMultimodalScreenState
 
   Widget buildBottomView() {
     final oraclesController = ref.watch(oracleMultimediaControllerProvider);
+    final query = ref.watch(queryMultimodalControllerProvider);
 
     return switch (oraclesController) {
       AsyncData(:final value) => ListView(
           shrinkWrap: true,
           children: [
             for (final (index, result) in value.indexed)
-              ResultCard(index: index, result: result),
+              ResultCard(index: index, query: query, result: result),
           ],
         ),
       AsyncError(:final error) => Text('Error: $error'),

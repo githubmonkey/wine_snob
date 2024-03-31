@@ -22,21 +22,20 @@ class OraclesRepository {
 // create
   Future<String> addOracle({
     required UserID uid,
-    required String input,
-    required String content,
     required String output,
     required String comment,
+    required Map<String, dynamic> queryData,
   }) async {
     final doc = _firestore.collection(oraclesPath(uid)).doc();
-    await doc.set({
+    final data = {
       'id': doc.id,
       'uid': uid,
-      'input': input,
-      'content': content,
       'output': output,
       'comment': comment,
-      'created': FieldValue.serverTimestamp()
-    });
+      'created': FieldValue.serverTimestamp(),
+      ...queryData,
+    };
+    await doc.set(data);
     return doc.id;
   }
 

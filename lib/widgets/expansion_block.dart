@@ -35,12 +35,14 @@ class ExpansionBlockState extends ConsumerState<ExpansionBlock> {
                   child: Text(widget.title),
                 );
               },
-              body: Container(
-                color: Colors.white,
-                width: Size.infinite.width,
-                padding: const EdgeInsets.all(16),
-                child: widget.child,
-              ),
+              body: _isOpen
+                  ? Container(
+                      color: Colors.white,
+                      width: Size.infinite.width,
+                      padding: const EdgeInsets.all(16),
+                      child: widget.child,
+                    )
+                  : const SizedBox(),
             )
           ]),
     );

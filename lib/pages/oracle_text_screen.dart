@@ -43,8 +43,7 @@ class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
                 const SizedBox(height: 10.0),
                 ExpansionBlock(
                   title: 'Full prompt',
-                  child:
-                      Text(Query.prettyPrint(currentQuery.toContentForText())),
+                  child: Text(currentQuery.toPrettyPrintedContent()),
                 ),
               ],
             )),
@@ -118,13 +117,14 @@ class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
 
   Expanded buildBottomView2() {
     final oraclesController = ref.watch(oracleTextControllerProvider);
+    final query = ref.watch(queryTextControllerProvider);
 
     return Expanded(
       child: switch (oraclesController) {
         AsyncData(:final value) => ListView(
             children: [
               for (final (index, result) in value.indexed)
-                ResultCard(index: index, result: result),
+                ResultCard(index: index, query: query, result: result),
             ],
           ),
         AsyncError(:final error) => Text('Error: $error'),

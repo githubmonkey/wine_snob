@@ -7,7 +7,7 @@ part of 'oracle_multimedia_controller.dart';
 // **************************************************************************
 
 String _$oracleMultimediaControllerHash() =>
-    r'6e918f3c18f881a851d4f61cc31c436d2e6cdec6';
+    r'201708ca8102a03a0ee57dfae33658e56da5111b';
 
 /// See also [OracleMultimediaController].
 @ProviderFor(OracleMultimediaController)

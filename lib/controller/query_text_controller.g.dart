@@ -7,12 +7,12 @@ part of 'query_text_controller.dart';
 // **************************************************************************
 
 String _$queryTextControllerHash() =>
-    r'5e8e27ee3a2fdf517a3456c2e0174d6882821576';
+    r'ab05221f00319c8bf6c4d52a07ef4ec54337f2e2';
 
 /// See also [QueryTextController].
 @ProviderFor(QueryTextController)
 final queryTextControllerProvider =
-    NotifierProvider<QueryTextController, Query>.internal(
+    NotifierProvider<QueryTextController, TextQuery>.internal(
   QueryTextController.new,
   name: r'queryTextControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final queryTextControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$QueryTextController = Notifier<Query>;
+typedef _$QueryTextController = Notifier<TextQuery>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

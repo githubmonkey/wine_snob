@@ -15,7 +15,7 @@ class OracleMultimediaController extends _$OracleMultimediaController {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final query = ref.read(queryMultimodalControllerProvider);
-      final content = await query.toContentForMultimodal();
+      final content = await query.toContent();
       return ref
           .read(modelRepositoryProvider(ModelType.multimodal))
           .fetchResults([content]);

@@ -7,8 +7,8 @@ part 'query_multimodal_controller.g.dart';
 @Riverpod(keepAlive: true)
 class QueryMultimodalController extends _$QueryMultimodalController {
   @override
-  Query build() {
-    return const Query();
+  MultimediaQuery build() {
+    return const MultimediaQuery();
   }
 
   void updateText({required String? text}) {

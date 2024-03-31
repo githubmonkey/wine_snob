@@ -60,7 +60,7 @@ class ImagePickerBlock extends StatelessWidget {
         final images = ref.watch(
             queryMultimodalControllerProvider.select((query) => query.images));
 
-        print('rebuild box for ${images.length} images');
+        //print('rebuild box for ${images.length} images');
         if (images.isEmpty) {
           return const Text('Your image here');
         } else {

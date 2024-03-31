@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wine_snob/controller/query_text_controller.dart';
 import 'package:wine_snob/data/repositories/firebase_auth_repository.dart';
 import 'package:wine_snob/data/repositories/oracles_repository.dart';
+import 'package:wine_snob/domain/models/query.dart';
 
 class ResultCard extends ConsumerStatefulWidget {
   const ResultCard({
     super.key,
     required this.index,
+    required this.query,
     required this.result,
   });
 
   final int index;
+  final BaseQuery query;
   final String result;
 
   @override
@@ -58,14 +60,12 @@ class ResultCardState extends ConsumerState<ResultCard> {
                       final oraclesRepository =
                           ref.read(oraclesRepositoryProvider);
                       final user = ref.read(authRepositoryProvider).currentUser;
-                      final query = ref.watch(queryTextControllerProvider);
                       final id = await oraclesRepository.addOracle(
-                          uid: user!.uid,
-                          input: query.input ?? '',
-                          content: '[]',
-                          //query?.toContentString() ?? '[]',
-                          output: widget.result,
-                          comment: comment);
+                        uid: user!.uid,
+                        output: widget.result,
+                        comment: comment,
+                        queryData: await widget.query.dataForHistory(),
+                      );
                       setState(() {
                         oracleId = id;
                         isDirty = false;
@@ -108,14 +108,12 @@ class ResultCardState extends ConsumerState<ResultCard> {
                               oracleId = null;
                             });
                           } else {
-                            final query = ref.watch(queryTextControllerProvider);
                             final id = await oraclesRepository.addOracle(
-                                uid: user!.uid,
-                                input: query.input ?? '',
-                                content: '[]',
-                                // query?.toContentString() ?? '[]',
-                                output: widget.result,
-                                comment: comment);
+                              uid: user!.uid,
+                              output: widget.result,
+                              comment: comment,
+                              queryData: await widget.query.dataForHistory(),
+                            );
                             setState(() {
                               oracleId = id;
                             });

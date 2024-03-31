@@ -15,7 +15,7 @@ class OracleTextController extends _$OracleTextController {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final query = ref.read(queryTextControllerProvider);
-      final content = query.toContentForText();
+      final content = query.toContent();
       return ref
           .read(modelRepositoryProvider(ModelType.text))
           .fetchResults([content]);
