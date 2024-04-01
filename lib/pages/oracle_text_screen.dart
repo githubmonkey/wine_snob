@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wine_snob/controller/oracle_controller.dart';
-import 'package:wine_snob/controller/query_controller.dart';
+import 'package:wine_snob/controller/oracle_text_controller.dart';
+import 'package:wine_snob/controller/query_text_controller.dart';
 import 'package:wine_snob/domain/models/query.dart';
-import 'package:wine_snob/widgets/prompt_info.dart';
+import 'package:wine_snob/widgets/expansion_block.dart';
 import 'package:wine_snob/widgets/result_card.dart';
 
 class OracleTextScreen extends ConsumerStatefulWidget {
@@ -26,6 +26,8 @@ class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final currentQuery = ref.watch(queryTextControllerProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Generative AI Demo - Text Prompt'),
@@ -39,7 +41,10 @@ class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
                 const SizedBox(height: 10.0),
                 buildBottomView2(),
                 const SizedBox(height: 10.0),
-                const PromptInfo(),
+                ExpansionBlock(
+                  title: 'Full prompt',
+                  child: Text(currentQuery.toPrettyPrintedContent()),
+                ),
               ],
             )),
       ),
@@ -61,9 +66,9 @@ class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
             maxLines: 1,
             onChanged: (value) {
               ref
-                  .read(queryControllerProvider.notifier)
+                  .read(queryTextControllerProvider.notifier)
                   .updateInput(input: value);
-              ref.read(oracleControllerProvider.notifier).resetResults();
+              ref.read(oracleTextControllerProvider.notifier).resetResults();
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -82,9 +87,9 @@ class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
             maxLines: 3,
             onChanged: (value) {
               ref
-                  .read(queryControllerProvider.notifier)
+                  .read(queryTextControllerProvider.notifier)
                   .updateScaffold(scaffold: value);
-              ref.read(oracleControllerProvider.notifier).resetResults();
+              ref.read(oracleTextControllerProvider.notifier).resetResults();
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -100,7 +105,7 @@ class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
           FilledButton(
             onPressed: (() {
               if (_formKey.currentState!.validate()) {
-                ref.read(oracleControllerProvider.notifier).queryModel();
+                ref.read(oracleTextControllerProvider.notifier).queryModel();
               }
             }),
             child: const Text('Taste it!'),
@@ -111,14 +116,15 @@ class OracleTextScreenState extends ConsumerState<OracleTextScreen> {
   }
 
   Expanded buildBottomView2() {
-    final oraclesController = ref.watch(oracleControllerProvider);
+    final oraclesController = ref.watch(oracleTextControllerProvider);
+    final query = ref.watch(queryTextControllerProvider);
 
     return Expanded(
       child: switch (oraclesController) {
         AsyncData(:final value) => ListView(
             children: [
               for (final (index, result) in value.indexed)
-                ResultCard(index: index, result: result),
+                ResultCard(index: index, query: query, result: result),
             ],
           ),
         AsyncError(:final error) => Text('Error: $error'),

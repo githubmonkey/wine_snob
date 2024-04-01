@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ExpansionBlock extends ConsumerStatefulWidget {
-  const ExpansionBlock({super.key, required this.title, required this.body});
+  const ExpansionBlock({super.key, required this.title, required this.child});
 
   final String title;
-  final String body;
+  final Widget child;
 
   @override
   ExpansionBlockState createState() => ExpansionBlockState();
@@ -35,12 +35,14 @@ class ExpansionBlockState extends ConsumerState<ExpansionBlock> {
                   child: Text(widget.title),
                 );
               },
-              body: Container(
-                color: Colors.white,
-                width: Size.infinite.width,
-                padding: const EdgeInsets.all(16),
-                child: Text(widget.body),
-              ),
+              body: _isOpen
+                  ? Container(
+                      color: Colors.white,
+                      width: Size.infinite.width,
+                      padding: const EdgeInsets.all(16),
+                      child: widget.child,
+                    )
+                  : const SizedBox(),
             )
           ]),
     );

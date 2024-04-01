@@ -6,22 +6,7 @@ part of 'model_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$modelRepositoryHash() => r'44e446a74140145ceb7bbac9ff127d61d1a3329e';
-
-/// See also [modelRepository].
-@ProviderFor(modelRepository)
-final modelRepositoryProvider = Provider<ModelRepository>.internal(
-  modelRepository,
-  name: r'modelRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$modelRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef ModelRepositoryRef = ProviderRef<ModelRepository>;
-String _$fetchResultsHash() => r'80369054ce76e9bc7ef3c0c63b6a181e1c8317b6';
+String _$modelRepositoryHash() => r'c8e8b9aaf4c644ccdc93dcd06f48061408c0b684';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -44,30 +29,30 @@ class _SystemHash {
   }
 }
 
-/// See also [fetchResults].
-@ProviderFor(fetchResults)
-const fetchResultsProvider = FetchResultsFamily();
+/// See also [modelRepository].
+@ProviderFor(modelRepository)
+const modelRepositoryProvider = ModelRepositoryFamily();
 
-/// See also [fetchResults].
-class FetchResultsFamily extends Family<AsyncValue<List<String>>> {
-  /// See also [fetchResults].
-  const FetchResultsFamily();
+/// See also [modelRepository].
+class ModelRepositoryFamily extends Family<ModelRepository> {
+  /// See also [modelRepository].
+  const ModelRepositoryFamily();
 
-  /// See also [fetchResults].
-  FetchResultsProvider call(
-    Iterable<Content> content,
+  /// See also [modelRepository].
+  ModelRepositoryProvider call(
+    String modelName,
   ) {
-    return FetchResultsProvider(
-      content,
+    return ModelRepositoryProvider(
+      modelName,
     );
   }
 
   @override
-  FetchResultsProvider getProviderOverride(
-    covariant FetchResultsProvider provider,
+  ModelRepositoryProvider getProviderOverride(
+    covariant ModelRepositoryProvider provider,
   ) {
     return call(
-      provider.content,
+      provider.modelName,
     );
   }
 
@@ -83,92 +68,91 @@ class FetchResultsFamily extends Family<AsyncValue<List<String>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'fetchResultsProvider';
+  String? get name => r'modelRepositoryProvider';
 }
 
-/// See also [fetchResults].
-class FetchResultsProvider extends AutoDisposeFutureProvider<List<String>> {
-  /// See also [fetchResults].
-  FetchResultsProvider(
-    Iterable<Content> content,
+/// See also [modelRepository].
+class ModelRepositoryProvider extends Provider<ModelRepository> {
+  /// See also [modelRepository].
+  ModelRepositoryProvider(
+    String modelName,
   ) : this._internal(
-          (ref) => fetchResults(
-            ref as FetchResultsRef,
-            content,
+          (ref) => modelRepository(
+            ref as ModelRepositoryRef,
+            modelName,
           ),
-          from: fetchResultsProvider,
-          name: r'fetchResultsProvider',
+          from: modelRepositoryProvider,
+          name: r'modelRepositoryProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$fetchResultsHash,
-          dependencies: FetchResultsFamily._dependencies,
+                  : _$modelRepositoryHash,
+          dependencies: ModelRepositoryFamily._dependencies,
           allTransitiveDependencies:
-              FetchResultsFamily._allTransitiveDependencies,
-          content: content,
+              ModelRepositoryFamily._allTransitiveDependencies,
+          modelName: modelName,
         );
 
-  FetchResultsProvider._internal(
+  ModelRepositoryProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.content,
+    required this.modelName,
   }) : super.internal();
 
-  final Iterable<Content> content;
+  final String modelName;
 
   @override
   Override overrideWith(
-    FutureOr<List<String>> Function(FetchResultsRef provider) create,
+    ModelRepository Function(ModelRepositoryRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: FetchResultsProvider._internal(
-        (ref) => create(ref as FetchResultsRef),
+      override: ModelRepositoryProvider._internal(
+        (ref) => create(ref as ModelRepositoryRef),
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        content: content,
+        modelName: modelName,
       ),
     );
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<String>> createElement() {
-    return _FetchResultsProviderElement(this);
+  ProviderElement<ModelRepository> createElement() {
+    return _ModelRepositoryProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is FetchResultsProvider && other.content == content;
+    return other is ModelRepositoryProvider && other.modelName == modelName;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, content.hashCode);
+    hash = _SystemHash.combine(hash, modelName.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin FetchResultsRef on AutoDisposeFutureProviderRef<List<String>> {
-  /// The parameter `content` of this provider.
-  Iterable<Content> get content;
+mixin ModelRepositoryRef on ProviderRef<ModelRepository> {
+  /// The parameter `modelName` of this provider.
+  String get modelName;
 }
 
-class _FetchResultsProviderElement
-    extends AutoDisposeFutureProviderElement<List<String>>
-    with FetchResultsRef {
-  _FetchResultsProviderElement(super.provider);
+class _ModelRepositoryProviderElement extends ProviderElement<ModelRepository>
+    with ModelRepositoryRef {
+  _ModelRepositoryProviderElement(super.provider);
 
   @override
-  Iterable<Content> get content => (origin as FetchResultsProvider).content;
+  String get modelName => (origin as ModelRepositoryProvider).modelName;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

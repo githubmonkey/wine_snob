@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:core';
 
 import 'package:google_generative_ai/google_generative_ai.dart';
@@ -9,6 +8,11 @@ part 'model_repository.g.dart';
 
 const GEMINI_PRO_VISION = 'gemini-pro-vision';
 const GEMINI_PRO = 'gemini-pro';
+
+class ModelType {
+  static const String text = 'gemini-pro';
+  static const String multimodal = 'gemini-pro-vision';
+}
 
 class ModelRepository {
   ModelRepository({required this.apiKey, required this.modelName}) {
@@ -43,13 +47,7 @@ class ModelRepository {
 }
 
 @Riverpod(keepAlive: true)
-ModelRepository modelRepository(ModelRepositoryRef ref) {
-  return ModelRepository(apiKey: Secrets.modelApiKey, modelName: GEMINI_PRO);
-}
-
-@riverpod
-Future<List<String>> fetchResults(
-    FetchResultsRef ref, Iterable<Content> content) {
-  final repository = ref.watch(modelRepositoryProvider);
-  return repository.fetchResults(content);
+ModelRepository modelRepository(ModelRepositoryRef ref, String modelName) {
+  return ModelRepository(
+      apiKey: Secrets.modelApiKey, modelName: modelName);
 }

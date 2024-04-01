@@ -41,8 +41,8 @@ class ResultCardState extends ConsumerState<HistoryCard> {
             Text('${widget.oracle.id}; ${widget.oracle.created}',
                 style: Theme.of(context).textTheme.titleMedium),
             ExpansionBlock(
-              title: widget.oracle.input,
-              body: widget.oracle.content,
+              title: widget.oracle.input ?? 'Multimedia prompt',
+              child: Text(widget.oracle.content),
             ),
             Text(widget.oracle.output),
            const SizedBox(height: 16.0),

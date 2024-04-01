@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wine_snob/controller/oracle_controller.dart';
-import 'package:wine_snob/controller/query_controller.dart';
-import 'package:wine_snob/widgets/prompt_info.dart';
+import 'package:wine_snob/controller/oracle_multimedia_controller.dart';
+import 'package:wine_snob/controller/query_multimodal_controller.dart';
+import 'package:wine_snob/domain/models/query.dart';
+import 'package:wine_snob/widgets/expansion_block.dart';
+import 'package:wine_snob/widgets/image_picker_block.dart';
 import 'package:wine_snob/widgets/result_card.dart';
 
 class OracleMultimodalScreen extends ConsumerStatefulWidget {
@@ -12,11 +14,11 @@ class OracleMultimodalScreen extends ConsumerStatefulWidget {
   OracleMultimodalScreenState createState() => OracleMultimodalScreenState();
 }
 
-class OracleMultimodalScreenState extends ConsumerState<OracleMultimodalScreen> {
+class OracleMultimodalScreenState
+    extends ConsumerState<OracleMultimodalScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  String instructionTitle =
-      'Upload some photos and adjust the text as needed.';
+  String instructionTitle = 'Upload some photos and adjust the text as needed.';
 
   @override
   void initState() {
@@ -25,22 +27,26 @@ class OracleMultimodalScreenState extends ConsumerState<OracleMultimodalScreen> 
 
   @override
   Widget build(BuildContext context) {
+    final currentQuery = ref.watch(queryMultimodalControllerProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Generative AI Demo - Multimodal Prompt'),
       ),
-      body: Center(
-        child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: <Widget>[
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(children: <Widget>[
                 buildTopView(),
                 const SizedBox(height: 10.0),
-                buildBottomView2(),
+                buildBottomView(),
                 const SizedBox(height: 10.0),
-                const PromptInfo(),
-              ],
-            )),
+                ExpansionBlock(
+                    title: 'Full prompt',
+                    child: Text(currentQuery.toPrettyPrintedContent())),
+              ])),
+        ),
       ),
     );
   }
@@ -49,56 +55,68 @@ class OracleMultimodalScreenState extends ConsumerState<OracleMultimodalScreen> 
     return Form(
       key: _formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Text(instructionTitle, style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 16.0),
           TextFormField(
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'About the wine',
+              labelText: "Full Text Prompt",
             ),
-            maxLines: 3,
+            initialValue: MULTIMODAL_TEXT,
+            minLines: 3,
+            maxLines: 10,
             onChanged: (value) {
               ref
-                  .read(queryControllerProvider.notifier)
-                  .updateInput(input: value);
-              ref.read(oracleControllerProvider.notifier).resetResults();
+                  .read(queryMultimodalControllerProvider.notifier)
+                  .updateText(text: value);
+              ref
+                  .read(oracleMultimediaControllerProvider.notifier)
+                  .resetResults();
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter a description here';
+                return "This can't be empty";
               }
               return null;
             },
           ),
           const SizedBox(height: 16.0),
-          FilledButton(
-            onPressed: (() {
-              if (_formKey.currentState!.validate()) {
-                ref.read(oracleControllerProvider.notifier).queryModel();
-              }
-            }),
-            child: const Text('Taste it!'),
+          const ImagePickerBlock(),
+          const SizedBox(height: 16.0),
+          SizedBox(
+            width: 140.0,
+            child: FilledButton(
+              onPressed: (() {
+                if (_formKey.currentState!.validate()) {
+                  ref
+                      .read(oracleMultimediaControllerProvider.notifier)
+                      .queryModel();
+                }
+              }),
+              child: const Text('Taste it!'),
+            ),
           )
         ],
       ),
     );
   }
 
-  Expanded buildBottomView2() {
-    final oraclesController = ref.watch(oracleControllerProvider);
+  Widget buildBottomView() {
+    final oraclesController = ref.watch(oracleMultimediaControllerProvider);
+    final query = ref.watch(queryMultimodalControllerProvider);
 
-    return Expanded(
-      child: switch (oraclesController) {
-        AsyncData(:final value) => ListView(
-            children: [
-              for (final (index, result) in value.indexed)
-                ResultCard(index: index, result: result),
-            ],
-          ),
-        AsyncError(:final error) => Text('Error: $error'),
-        _ => const Center(child: CircularProgressIndicator()),
-      },
-    );
+    return switch (oraclesController) {
+      AsyncData(:final value) => ListView(
+          shrinkWrap: true,
+          children: [
+            for (final (index, result) in value.indexed)
+              ResultCard(index: index, query: query, result: result),
+          ],
+        ),
+      AsyncError(:final error) => Text('Error: $error'),
+      _ => const Center(child: CircularProgressIndicator()),
+    };
   }
 }

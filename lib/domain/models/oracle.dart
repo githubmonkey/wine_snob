@@ -11,8 +11,9 @@ class Oracle extends Equatable {
   const Oracle({
     required this.id,
     required this.uid,
-    required this.input,
     required this.content,
+    this.input,
+    this.images,
     required this.output,
     this.comment,
     this.rating,
@@ -21,8 +22,9 @@ class Oracle extends Equatable {
 
   final OracleID id;
   final UserID uid;
-  final String input;
   final String content;
+  final String? input;
+  final List<Uint8List>? images;
   final String output;
   final String? comment;
   final int? rating;
@@ -32,9 +34,10 @@ class Oracle extends Equatable {
   List<Object> get props => [
         id,
         uid,
-        input,
         // this is the message content, so the prompt
         content,
+        input ?? '',
+        images ?? '',
         output,
         comment ?? '',
         rating ?? '',
@@ -46,8 +49,9 @@ class Oracle extends Equatable {
 
   factory Oracle.fromMap(Map<String, dynamic> data, String id) {
     final uid = data['uid'] as String;
-    final input = data['input'] as String;
     final content = data['content'] as String;
+    final input = data['input'] as String?;
+    final images = data['images'] as List<Uint8List>?;
     final output = data['output'] as String;
     final comment = data['comment'] as String?;
     final rating = data['rating'] as int?;
@@ -57,8 +61,9 @@ class Oracle extends Equatable {
     return Oracle(
       id: id,
       uid: uid,
-      input: input,
       content: content,
+      input: input,
+      images: images,
       output: output,
       comment: comment,
       rating: rating,
@@ -68,8 +73,9 @@ class Oracle extends Equatable {
 
   Oracle copyWith({
     id,
-    input,
     content,
+    input,
+    images,
     output,
     comment,
     rating,
@@ -78,8 +84,9 @@ class Oracle extends Equatable {
       Oracle(
         id: id ?? this.id,
         uid: uid,
-        input: input ?? input,
         content: content ?? content,
+        input: input ?? input,
+        images: images ?? images,
         output: output ?? output,
         comment: comment ?? comment,
         rating: rating ?? rating,
@@ -89,8 +96,9 @@ class Oracle extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
-      'input': input,
       'content': content,
+      'input': input,
+      'images': images,
       'output': output,
       'comment': comment,
       'rating': rating,
