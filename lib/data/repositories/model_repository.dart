@@ -6,12 +6,9 @@ import 'package:wine_snob/keys/secrets.dart';
 
 part 'model_repository.g.dart';
 
-const GEMINI_PRO_VISION = 'gemini-pro-vision';
-const GEMINI_PRO = 'gemini-pro';
-
 class ModelType {
-  static const String text = 'gemini-pro';
-  static const String multimodal = 'gemini-pro-vision';
+  static const String text = 'gemini-1.0-pro';
+  static const String multimodal = 'gemini-1.5-flash';
 }
 
 class ModelRepository {
