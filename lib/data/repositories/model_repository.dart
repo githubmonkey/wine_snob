@@ -1,24 +1,19 @@
 import 'dart:core';
 
-import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:firebase_vertexai/firebase_vertexai.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:wine_snob/keys/secrets.dart';
 
 part 'model_repository.g.dart';
 
-const GEMINI_PRO_VISION = 'gemini-pro-vision';
-const GEMINI_PRO = 'gemini-pro';
-
 class ModelType {
-  static const String text = 'gemini-pro';
-  static const String multimodal = 'gemini-pro-vision';
+  static const String text = 'gemini-1.0-pro';
+  static const String multimodal = 'gemini-1.5-flash';
 }
 
 class ModelRepository {
-  ModelRepository({required this.apiKey, required this.modelName}) {
-    model = GenerativeModel(
+  ModelRepository({required this.modelName}) {
+    model = FirebaseVertexAI.instance.generativeModel(
       model: modelName,
-      apiKey: apiKey,
       // the rest is optional
       safetySettings: [],
       generationConfig: GenerationConfig(
@@ -30,7 +25,6 @@ class ModelRepository {
     );
   }
 
-  final String apiKey;
   final String modelName;
 
   late GenerativeModel model;
@@ -48,6 +42,5 @@ class ModelRepository {
 
 @Riverpod(keepAlive: true)
 ModelRepository modelRepository(ModelRepositoryRef ref, String modelName) {
-  return ModelRepository(
-      apiKey: Secrets.modelApiKey, modelName: modelName);
+  return ModelRepository(modelName: modelName);
 }
