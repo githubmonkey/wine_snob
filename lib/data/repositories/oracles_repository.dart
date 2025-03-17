@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:wine_snob/data/repositories/firebase_auth_repository.dart';
 import 'package:wine_snob/domain/models/oracle.dart';
@@ -82,12 +83,12 @@ class OraclesRepository {
 }
 
 @Riverpod(keepAlive: true)
-OraclesRepository oraclesRepository(OraclesRepositoryRef ref) {
+OraclesRepository oraclesRepository(Ref ref) {
   return OraclesRepository(FirebaseFirestore.instance);
 }
 
 @riverpod
-Query<Oracle> oraclesQuery(OraclesQueryRef ref) {
+Query<Oracle> oraclesQuery(Ref ref) {
   final user = ref.watch(firebaseAuthProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null');
@@ -97,7 +98,7 @@ Query<Oracle> oraclesQuery(OraclesQueryRef ref) {
 }
 
 @riverpod
-Stream<Oracle> oracleStream(OracleStreamRef ref, OracleID oracleId) {
+Stream<Oracle> oracleStream(Ref ref, OracleID oracleId) {
   final user = ref.watch(firebaseAuthProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null');
@@ -107,7 +108,7 @@ Stream<Oracle> oracleStream(OracleStreamRef ref, OracleID oracleId) {
 }
 
 @riverpod
-Stream<List<Oracle>> oraclesStream(OraclesStreamRef ref) {
+Stream<List<Oracle>> oraclesStream(Ref ref) {
   final user = ref.watch(firebaseAuthProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null');

@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:firebase_vertexai/firebase_vertexai.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'model_repository.g.dart';
@@ -41,6 +42,6 @@ class ModelRepository {
 }
 
 @Riverpod(keepAlive: true)
-ModelRepository modelRepository(ModelRepositoryRef ref, String modelName) {
+ModelRepository modelRepository(Ref ref, String modelName) {
   return ModelRepository(modelName: modelName);
 }

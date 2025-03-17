@@ -102,7 +102,7 @@ class MultimediaQuery extends BaseQuery {
     }
 
     final List<Part> parts = [
-      ...imageTuples.map((tuple) => DataPart(tuple.$1, tuple.$2)),
+      ...imageTuples.map((tuple) => InlineDataPart(tuple.$1, tuple.$2)),
       TextPart(finalText),
     ];
 
@@ -114,7 +114,7 @@ class MultimediaQuery extends BaseQuery {
     var finalText = BaseQuery._sanitizeInput(text);
 
     final List<Part> parts = [
-      ...images.map((img) => DataPart(
+      ...images.map((img) => InlineDataPart(
             img.mimeType ?? '??',
             Uint8List.fromList(''.codeUnits),
           )),
