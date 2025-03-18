@@ -7,8 +7,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'model_repository.g.dart';
 
 class ModelType {
-  static const String text = 'gemini-1.0-pro';
-  static const String multimodal = 'gemini-1.5-flash';
+  static const String text = 'gemini-2.0-flash-lite';
+  static const String multimodal = 'gemini-2.0-flash-lite';
 }
 
 class ModelRepository {
@@ -18,8 +18,7 @@ class ModelRepository {
       // the rest is optional
       safetySettings: [],
       generationConfig: GenerationConfig(
-        // for now gemini-pro seems to support only one candidate
-        candidateCount: 1,
+        candidateCount: 3,
         temperature: 0.7,
         maxOutputTokens: 1024,
       ),
@@ -33,8 +32,9 @@ class ModelRepository {
   Future<List<String>> fetchResults(Iterable<Content> content) async {
     try {
       final response = await model.generateContent(content);
-      // TODO: this will get more complex once larger candidate counts are supported
-      return [response.text ?? 'no result'];
+      final List<String> results =
+          response.candidates.map((c) => c.text ?? 'no result').toList();
+      return results;
     } catch (error) {
       throw Exception('Error on model.generateContent: $error');
     }
