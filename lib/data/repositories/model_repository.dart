@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'package:firebase_vertexai/firebase_vertexai.dart';
+import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,7 +13,7 @@ class ModelType {
 
 class ModelRepository {
   ModelRepository({required this.modelName}) {
-    model = FirebaseVertexAI.instance.generativeModel(
+    model = FirebaseAI.googleAI().generativeModel(
       model: modelName,
       // the rest is optional
       safetySettings: [],
