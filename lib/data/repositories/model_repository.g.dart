@@ -6,7 +6,7 @@ part of 'model_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$modelRepositoryHash() => r'c8e8b9aaf4c644ccdc93dcd06f48061408c0b684';
+String _$modelRepositoryHash() => r'c0fa028ef5940b96eaaff704f7cae1f80d1df74d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -142,6 +142,8 @@ class ModelRepositoryProvider extends Provider<ModelRepository> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin ModelRepositoryRef on ProviderRef<ModelRepository> {
   /// The parameter `modelName` of this provider.
   String get modelName;
@@ -155,4 +157,4 @@ class _ModelRepositoryProviderElement extends ProviderElement<ModelRepository>
   String get modelName => (origin as ModelRepositoryProvider).modelName;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

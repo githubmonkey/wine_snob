@@ -6,7 +6,7 @@ part of 'oracles_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$oraclesRepositoryHash() => r'75da36977ad1a5411e67e24244d556aa30c77ff4';
+String _$oraclesRepositoryHash() => r'd8567b2a529adcbe41a12df1a075fc043ea93bf6';
 
 /// See also [oraclesRepository].
 @ProviderFor(oraclesRepository)
@@ -20,8 +20,10 @@ final oraclesRepositoryProvider = Provider<OraclesRepository>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef OraclesRepositoryRef = ProviderRef<OraclesRepository>;
-String _$oraclesQueryHash() => r'eefe8e6512943f7bca5d257628ab41a447c1ffb2';
+String _$oraclesQueryHash() => r'fea2e298a857c59f43e10cdd45fcb2c9a8ef4e57';
 
 /// See also [oraclesQuery].
 @ProviderFor(oraclesQuery)
@@ -34,8 +36,10 @@ final oraclesQueryProvider = AutoDisposeProvider<Query<Oracle>>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef OraclesQueryRef = AutoDisposeProviderRef<Query<Oracle>>;
-String _$oracleStreamHash() => r'01267ef5814f091af26d34102f868cd9d49e93a1';
+String _$oracleStreamHash() => r'5385de42c92d0c13d3672ec6bd75b749b46d6300';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -171,6 +175,8 @@ class OracleStreamProvider extends AutoDisposeStreamProvider<Oracle> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin OracleStreamRef on AutoDisposeStreamProviderRef<Oracle> {
   /// The parameter `oracleId` of this provider.
   String get oracleId;
@@ -184,7 +190,7 @@ class _OracleStreamProviderElement
   String get oracleId => (origin as OracleStreamProvider).oracleId;
 }
 
-String _$oraclesStreamHash() => r'66b6865eeec9022056b857414ca7462ba6030e10';
+String _$oraclesStreamHash() => r'ac03528f8401f329e32cf628729a4ce18a8c82fd';
 
 /// See also [oraclesStream].
 @ProviderFor(oraclesStream)
@@ -198,6 +204,8 @@ final oraclesStreamProvider = AutoDisposeStreamProvider<List<Oracle>>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef OraclesStreamRef = AutoDisposeStreamProviderRef<List<Oracle>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
